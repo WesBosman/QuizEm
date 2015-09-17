@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    //Strings for buttons
+    <string name="title_activity_quiz">Quiz</string>
+    <string name="title_activity_flash">Flash</string>
+    <string name="make_quiz">Make A Quiz</string>
+    <string name="all_quizzes">All Quizzes</string>
+    <string name="take_quiz">Take A Quiz</string>
+    <string name="delete_quiz">Delete</string>
+    <string name="edit_quiz">Edit</string>
+
+    //action bar strings.
+    <string name="bar_favorites">favorites</string>
+    <string name="bar_settings">settings</string>
+    <string name="bar_search">search</string>
+    <string name="title_activity_make_quiz">MakeQuiz</string>
+
+    //Strings for Making a Quiz
+    <string name="quiz_title">Title</string>
+    <string name="quiz_question">Question</string>
+    <string name="quiz_answers">Answers</string>
+    <string name="submit_button">Submit</string>
+    <string name="title_activity_all_quizzes">AllQuizzes</string>
+
+
+</resources>
