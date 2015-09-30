@@ -8,23 +8,61 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import java.util.ArrayList;
 
 public class AllQuizzes extends ListActivity {
-    Context context;
-    ArrayList<String> results;
+    private Context context = AllQuizzes.this;
+    private ArrayList<String> results = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quizzes);
-        context = AllQuizzes.this;
-        results = new ArrayList<>();
-
         /** Access the database and populate the all quizzes screen (List View)
-         *
          *  UPDATE: Now populates with titles of quizzes.
          */
+        populate();
+
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        //Try to get the item that was clicked
+        String newQuestion = results.get(position);
+        DatabaseFunctions df = new DatabaseFunctions(context);
+        df.deleteFromDatabase(newQuestion.toString());
+
+        //This deletes the item based on its position in the list
+        //It then repopulates the list.
+        DialogBoxDelete dbd = new DialogBoxDelete(AllQuizzes.this);
+        dbd.show();
+
+        //View yesView = findViewById(R.id.yes_button);
+
+        /**
+         * This will delete an item when clicked.
+         * Be Careful.
+         *
+         * results.remove(position);
+           populate();
+         *
+         */
+
+
+        //final Intent takeQuiz = new Intent(this, TakeQuiz.class);
+        //startActivity(takeQuiz);
+    }
+
+    /**
+     * This method populates the list view with user inputs.
+     * It uses a cursor to move through the columns of the database and populate the list view.
+     */
+    public void populate(){
         try {
             DatabaseFunctions df = new DatabaseFunctions(context);
             Cursor c = df.getFromDatabase(df);
@@ -32,22 +70,21 @@ public class AllQuizzes extends ListActivity {
                 if (c.moveToFirst()) {
                     do {
                         String title = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_TITLE));
-                        results.add("" + title + "");
+                        String question = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_QUESTION));
+                        String answer = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_ANSWER));
+                        results.add("title: " + title + "\n" + "question: " + question + "\n" + "answer: " + answer);
+                        ;
                     } while (c.moveToNext());
                 }
             }
-
             //This can set how the list can be viewed for example making clickable list items.
-            this.setListAdapter(new ArrayAdapter<>(this,
+            setListAdapter(new ArrayAdapter<>(this,
                     android.R.layout.simple_expandable_list_item_1, results));
 
         } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(),
                     "Could not create or open the database");
         }
-        //May want a finally clause for some reason later.
-
-
     }
 
     @Override

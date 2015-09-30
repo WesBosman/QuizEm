@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        quizBtn = (Button) findViewById(R.id.quiz_screen);
-        flashBtn = (Button) findViewById(R.id.flash_screen);
+        quizBtn = (Button) findViewById(R.id.quiz_button);
+        flashBtn = (Button) findViewById(R.id.flash_button);
         final Intent quizScrn = new Intent(this, QuizActivity.class);
         final Intent flashScrn = new Intent(this, FlashActivity.class);
 

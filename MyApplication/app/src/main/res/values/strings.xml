@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     //Strings for buttons
@@ -12,6 +10,8 @@
     <string name="take_quiz">Take A Quiz</string>
     <string name="delete_quiz">Delete</string>
     <string name="edit_quiz">Edit</string>
+    <string name="yes_button">Yes</string>
+    <string name="no_button">No</string>
 
     //action bar strings.
     <string name="bar_favorites">favorites</string>
@@ -25,6 +25,7 @@
     <string name="quiz_answers">Answers</string>
     <string name="submit_button">Submit</string>
     <string name="title_activity_all_quizzes">AllQuizzes</string>
-
+    <string name="title_activity_take_quiz">TakeQuiz</string>
+    <string name="delete_text">Would you like to delete this?</string>
 
 </resources>

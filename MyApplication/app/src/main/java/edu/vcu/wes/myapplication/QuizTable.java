@@ -7,12 +7,12 @@ import android.provider.BaseColumns;
  */
 public class QuizTable {
 
-    //Empty default constructer so this class does not get instantiated
+    //Empty default constructor so this class does not get instantiated.
     public QuizTable(){
     }
 
     public static abstract class TableInfo implements BaseColumns{
-        //Column names.
+        //Database SQLite strings
         public static final String QUIZ_TITLE = "quiz_title";
         public static final String QUIZ_QUESTION = "quiz_question";
         public static final String QUIZ_ANSWER = "quiz_answer";
