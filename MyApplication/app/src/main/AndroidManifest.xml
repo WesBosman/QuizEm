@@ -32,6 +32,10 @@
             android:name=".AllQuizzes"
             android:label="@string/title_activity_all_quizzes" >
         </activity>
+        <activity
+            android:name=".TakeQuiz"
+            android:label="@string/title_activity_take_quiz" >
+        </activity>
     </application>
 
 </manifest>

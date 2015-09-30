@@ -33,6 +33,8 @@ public class MakeQuiz extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submit_button);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
+        //Submit button should get user input store it in the database and make a toast to let
+        //User know that it has been saved in the database.
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,11 +47,8 @@ public class MakeQuiz extends AppCompatActivity {
                 Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
 
                 startActivity(allQuizzesScreen);
-
-
             }
         });
-
     }
 
     @Override
