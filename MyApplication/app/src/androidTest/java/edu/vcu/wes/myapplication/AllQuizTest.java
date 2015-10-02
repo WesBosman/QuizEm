@@ -49,19 +49,6 @@ public class AllQuizTest {
                 .atPosition(0)
                 .perform(click());
         onView(withId(android.R.id.button1)).perform(click());
-
-       /** onData(hasToString(startsWith("question: EspressoTestQuestion")))
-                .inAdapterView(withId(android.R.id.list))
-                .atPosition(0)
-                .perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-
-        onData(hasToString(startsWith("answer: EspressoTestAnswer")))
-                .inAdapterView(withId(android.R.id.list))
-                .atPosition(0)
-                .perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-        **/
     }
 
     @After
@@ -69,3 +56,4 @@ public class AllQuizTest {
 
     }
 }
+
