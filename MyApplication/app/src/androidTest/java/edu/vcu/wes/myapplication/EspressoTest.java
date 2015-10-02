@@ -44,6 +44,7 @@ import android.widget.EditText;
      */
     public void testCheckButtons() {
         onView(withId(R.id.quiz_button)).perform(click());
+<<<<<<< HEAD
         //assertEquals("MainActivity" , getActivity());
         pressBack();
         onView(withId(R.id.flash_button)).perform(click());
@@ -57,6 +58,8 @@ import android.widget.EditText;
         pressBack();
         pressBack();
 
+=======
+>>>>>>> origin/master
     }
 
     /**This one tests our make a quiz function. Currently half works.*/

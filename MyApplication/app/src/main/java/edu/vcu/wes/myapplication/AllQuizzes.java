@@ -1,7 +1,9 @@
 package edu.vcu.wes.myapplication;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -14,48 +16,49 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class AllQuizzes extends ListActivity {
-    private Context context = AllQuizzes.this;
-    private ArrayList<String> results = new ArrayList<>();
+    private Context context;
+    private ArrayList<String> results;
+    private ListView lv;
+    private ArrayAdapter ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quizzes);
-        /** Access the database and populate the all quizzes screen (List View)
-         *  UPDATE: Now populates with titles of quizzes.
-         */
+        lv = (ListView) findViewById(android.R.id.list);
+        results = new ArrayList<>();
+        context = AllQuizzes.this;
         populate();
-
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-        //Try to get the item that was clicked
-        String newQuestion = results.get(position);
-        DatabaseFunctions df = new DatabaseFunctions(context);
-        df.deleteFromDatabase(newQuestion.toString());
-
-        //This deletes the item based on its position in the list
-        //It then repopulates the list.
-        DialogBoxDelete dbd = new DialogBoxDelete(AllQuizzes.this);
-        dbd.show();
-
-        //View yesView = findViewById(R.id.yes_button);
-
         /**
-         * This will delete an item when clicked.
-         * Be Careful.
-         *
-         * results.remove(position);
-           populate();
-         *
+         * This method gets called when an item in the list is clicked.
+         * It then gets the position of the item in the list view.
+         * If the user clicks yes it deletes the item from the list.
+         * we could later make it for take a quiz or edit a quiz.
          */
+        final String newQuestion = results.get(position).toString();
+        final DatabaseFunctions df = new DatabaseFunctions(context);
+        AlertDialog.Builder adb = new AlertDialog.Builder(AllQuizzes.this);
+        adb.setTitle("Delete?");
+        adb.setMessage("Are you sure you want to delete this?");
+        final int positionToBeRemoved = position;
+        adb.setNegativeButton("No", null);
+        adb.setPositiveButton("Yes", new AlertDialog.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                    df.deleteFromDatabase(newQuestion);
+                    removeFromList(positionToBeRemoved);
+            }
+        });
+        adb.show();
+    }
 
-
-        //final Intent takeQuiz = new Intent(this, TakeQuiz.class);
-        //startActivity(takeQuiz);
+    public void removeFromList(int position){
+        results.remove(position);
+        ad.notifyDataSetChanged();
     }
 
     /**
@@ -73,14 +76,12 @@ public class AllQuizzes extends ListActivity {
                         String question = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_QUESTION));
                         String answer = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_ANSWER));
                         results.add("title: " + title + "\n" + "question: " + question + "\n" + "answer: " + answer);
-                        ;
                     } while (c.moveToNext());
                 }
             }
             //This can set how the list can be viewed for example making clickable list items.
-            setListAdapter(new ArrayAdapter<>(this,
-                    android.R.layout.simple_expandable_list_item_1, results));
-
+            ad = (new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, results));
+            lv.setAdapter(ad);
         } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(),
                     "Could not create or open the database");

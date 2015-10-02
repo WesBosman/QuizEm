@@ -72,6 +72,4 @@ public class MakeQuiz extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
