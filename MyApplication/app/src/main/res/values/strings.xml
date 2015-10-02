@@ -27,5 +27,6 @@
     <string name="title_activity_all_quizzes">AllQuizzes</string>
     <string name="title_activity_take_quiz">TakeQuiz</string>
     <string name="delete_text">Would you like to delete this?</string>
+    <string name="quiz_saved">Quiz Saved</string>
 
 </resources>

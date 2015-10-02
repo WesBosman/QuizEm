@@ -38,7 +38,5 @@ import android.test.suitebuilder.annotation.LargeTest;
      */
     public void testCheckButtons() {
         onView(withId(R.id.quiz_button)).perform(click());
-        //getActivity();
-        //onView(withId(R.id.flash_button)).perform(click());
     }
 }
