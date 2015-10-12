@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class MakeQuiz extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class MakeQuiz extends AppCompatActivity {
     private EditText userMadeQuestion;
     private EditText userMadeAnswer;
     private Button submitButton;
+    private ImageButton newQuizButton;
     private Context ctx;
 
     @Override
@@ -31,6 +34,7 @@ public class MakeQuiz extends AppCompatActivity {
         userMadeQuestion = (EditText) findViewById(R.id.editTextQuestion);
         userMadeAnswer = (EditText) findViewById(R.id.editTextAnswer);
         submitButton = (Button) findViewById(R.id.submit_button);
+        newQuizButton = (ImageButton) findViewById(R.id.addQuestionButton);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
         //Submit button should get user input store it in the database and make a toast to let
@@ -47,6 +51,15 @@ public class MakeQuiz extends AppCompatActivity {
                 Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
 
                 startActivity(allQuizzesScreen);
+            }
+        });
+
+        newQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newQuizButton.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
             }
         });
     }

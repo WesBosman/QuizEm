@@ -18,14 +18,14 @@ import java.util.ArrayList;
 public class AllQuizzes extends ListActivity {
     private Context context;
     private ArrayList<String> results;
-    private ListView lv;
-    private ArrayAdapter ad;
+    private ListView listView;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quizzes);
-        lv = (ListView) findViewById(android.R.id.list);
+        listView = (ListView) findViewById(android.R.id.list);
         results = new ArrayList<>();
         context = AllQuizzes.this;
         populate();
@@ -41,24 +41,24 @@ public class AllQuizzes extends ListActivity {
          * we could later make it for take a quiz or edit a quiz.
          */
         final String newQuestion = results.get(position).toString();
-        final DatabaseFunctions df = new DatabaseFunctions(context);
-        AlertDialog.Builder adb = new AlertDialog.Builder(AllQuizzes.this);
-        adb.setTitle("Delete?");
-        adb.setMessage("Are you sure you want to delete this?");
+        final DatabaseFunctions dataFunctions = new DatabaseFunctions(context);
+        AlertDialog.Builder deleteDialogBox = new AlertDialog.Builder(AllQuizzes.this);
+        deleteDialogBox.setTitle("Delete?");
+        deleteDialogBox.setMessage("Are you sure you want to delete this?");
         final int positionToBeRemoved = position;
-        adb.setNegativeButton("No", null);
-        adb.setPositiveButton("Yes", new AlertDialog.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                    df.deleteFromDatabase(newQuestion);
-                    removeFromList(positionToBeRemoved);
+        deleteDialogBox.setNegativeButton("No", null);
+        deleteDialogBox.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dataFunctions.deleteFromDatabase(newQuestion);
+                removeFromList(positionToBeRemoved);
             }
         });
-        adb.show();
+        deleteDialogBox.show();
     }
 
     public void removeFromList(int position){
         results.remove(position);
-        ad.notifyDataSetChanged();
+        arrayAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -80,8 +80,8 @@ public class AllQuizzes extends ListActivity {
                 }
             }
             //This can set how the list can be viewed for example making clickable list items.
-            ad = (new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, results));
-            lv.setAdapter(ad);
+            arrayAdapter = (new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, results));
+            listView.setAdapter(arrayAdapter);
         } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(),
                     "Could not create or open the database");
