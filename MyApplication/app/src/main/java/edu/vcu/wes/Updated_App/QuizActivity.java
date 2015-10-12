@@ -7,8 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivity extends AppCompatActivity{
     private Button takeQuiz;
     private Button makeQuiz;
     private Button allQuiz;
@@ -28,7 +29,7 @@ public class QuizActivity extends AppCompatActivity {
         takeQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            Toast.makeText(QuizActivity.this, "Thie function has not been created yet",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -46,6 +47,27 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
     }
+
+/**
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case (R.id.quiz_take):
+                Toast.makeText(this, "Thie function has not been created yet",Toast.LENGTH_LONG).show();
+                break;
+            case (R.id.quiz_make):
+                final Intent quizMaker = new Intent(this,  MakeQuiz.class);
+                startActivity(quizMaker);
+                break;
+            case (R.id.quiz_all):
+                final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
+                startActivity(allQuizzesScreen);
+                break;
+            default:
+                break;
+        }
+    }
+ **/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

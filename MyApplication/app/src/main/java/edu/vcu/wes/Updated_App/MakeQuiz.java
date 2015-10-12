@@ -1,5 +1,6 @@
 package edu.vcu.wes.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MakeQuiz extends AppCompatActivity {
     private String titleOfQuiz;
@@ -17,6 +19,7 @@ public class MakeQuiz extends AppCompatActivity {
     private EditText userMadeQuestion;
     private EditText userMadeAnswer;
     private Button submitButton;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +33,22 @@ public class MakeQuiz extends AppCompatActivity {
         submitButton = (Button) findViewById(R.id.submit_button);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
+        //Submit button should get user input store it in the database and make a toast to let
+        //User know that it has been saved in the database.
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                titleOfQuiz = userMadeTitle.getText().toString();
+                questionOfQuiz = userMadeQuestion.getText().toString();
+                answerOfQuiz = userMadeAnswer.getText().toString();
+                ctx = MakeQuiz.this;
+                DatabaseFunctions database = new DatabaseFunctions(ctx);
+                database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz, answerOfQuiz);
+                Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
+
                 startActivity(allQuizzesScreen);
             }
         });
-
     }
 
     @Override
@@ -60,6 +72,4 @@ public class MakeQuiz extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
