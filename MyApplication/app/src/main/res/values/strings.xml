@@ -29,6 +29,7 @@
     <string name="delete_text">Would you like to delete this?</string>
     <string name="quiz_saved">Quiz Saved</string>
 
+<<<<<<< HEAD
     //new strings
     <string name="favy_string">favorite</string>
     <string name="share_string">share</string>
@@ -40,4 +41,6 @@
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
 
+=======
+>>>>>>> refs/remotes/origin/master
 </resources>
