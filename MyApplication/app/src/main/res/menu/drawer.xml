@@ -41,7 +41,7 @@
             android:id="@+id/favorite"
             android:checked="false"
             android:icon="@drawable/white_favorite"
-            android:title="@string/favy_string">
+            android:title="@string/fav_string">
         </item>
 
         <item

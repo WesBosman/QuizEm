@@ -29,4 +29,13 @@
     <string name="delete_text">Would you like to delete this?</string>
     <string name="quiz_saved">Quiz Saved</string>
 
+    //Strings Navigation drawer
+    <string name="home_string">Home</string>
+    <string name="quiz_string">Quiz</string>
+    <string name="flashcard_string">Flashcards</string>
+    <string name="help_string">Help</string>
+    <string name="result_string">Results</string>
+    <string name="fav_string">Home</string>
+    <string name="share_string">Share</string>
+
 </resources>
