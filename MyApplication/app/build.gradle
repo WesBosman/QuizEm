@@ -32,15 +32,5 @@ dependencies {
     /** Was using the wrong build for espresso testing. Changed so tests would run
      *  The Old Version is above. Project is now compiled using version 22.
      */
-<<<<<<< HEAD
-    //compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'de.hdodenhof:circleimageview:1.3.0'
-    compile 'com.android.support:design:22.2.0'
-    compile "com.android.support:appcompat-v7:21.0.+"
-
-
-
-=======
     compile 'com.android.support:appcompat-v7:22.2.0'
->>>>>>> refs/remotes/origin/master
 }
