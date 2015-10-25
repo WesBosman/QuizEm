@@ -49,21 +49,49 @@ public class MakeQuizTest {
                 .perform(typeText("EspressoTestQuestion"))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.editTextAnswer)).perform(click())
-                .perform(typeText("EspressoTestAnswer"))
+        onView(withId(R.id.editTextAnswerOne)).perform(click())
+                .perform(typeText("EspressoTestAnswer1"))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.submit_button)).perform(click());
-    }
+        onView(withId(R.id.editTextAnswerTwo)).perform(click())
+                .perform(typeText("EspressoTestAnswer2"))
+                .check(matches(isDisplayed()));
 
-    @After
-    public void afterAllTests(){
+        onView(withId(R.id.editTextAnswerThree)).perform(click())
+                .perform(typeText("EspressoTestAnswer3"))
+                .check(matches(isDisplayed()));
+
+        onView(withId(R.id.editTextAnswerFour)).perform(click())
+                .perform(typeText("EspressoTestAnswer4(Correct_Answer)"))
+                .check(matches(isDisplayed()));
+
+        //How to check if the information is stored in the database?
+        onView(withId(R.id.submit_button)).perform(click());
+
+        //Click All Quizzes button and check that the previous text was stored in the list view.
+        //This would tell us that the information was stored in the database and then retrieved.
+        onView(withId(R.id.all_quizzes_button)).perform(click());
+
         onData(startsWith("EspressoTestTitle"))
                 .inAdapterView(withText(android.R.id.list));
         onData(startsWith("EspressoTestQuestion"))
                 .inAdapterView(withText(android.R.id.list));
-        onData(startsWith("EspressoTestAnswer"))
+        onData(startsWith("EspressoTestAnswer1"))
                 .inAdapterView(withText(android.R.id.list));
+        onData(startsWith("EspressoTestAnswer2"))
+                .inAdapterView(withText(android.R.id.list));
+        onData(startsWith("EspressoTestAnswer3"))
+                .inAdapterView(withText(android.R.id.list));
+        onData(startsWith("EspressoTestAnswer4(Correct_Answer"))
+                .inAdapterView(withText(android.R.id.list));
+
+    }
+
+    //Use view assert statements to test.
+    //REMEMBER TO TRY TO TEST ALL POSSIBILITIES.
+    @After
+    public void afterAllTests(){
+
     }
 }
 

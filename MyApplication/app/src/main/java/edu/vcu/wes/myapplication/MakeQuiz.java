@@ -14,11 +14,16 @@ import android.widget.Toast;
 public class MakeQuiz extends AppCompatActivity {
     private String titleOfQuiz;
     private String questionOfQuiz;
-    private String answerOfQuiz;
+    private String answerOneQuiz;
+    private String answerTwoQuiz;
+    private String answerThreeQuiz;
+    private String answerCorrectQuiz;
     private EditText userMadeTitle;
     private EditText userMadeQuestion;
-    private EditText userMadeAnswer;
-    private Button submitButton;
+    private EditText userMadeAnswer1;
+    private EditText userMadeAnswer2;
+    private EditText userMadeAnswer3;
+    private EditText userMadeCorrectAnswer;
     private Context ctx;
 
     @Override
@@ -29,32 +34,57 @@ public class MakeQuiz extends AppCompatActivity {
         //Set the editText views and buttons
         userMadeTitle = (EditText) findViewById(R.id.editTextTitle);
         userMadeQuestion = (EditText) findViewById(R.id.editTextQuestion);
-        userMadeAnswer = (EditText) findViewById(R.id.editTextAnswer);
-        submitButton = (Button) findViewById(R.id.submit_button);
+        userMadeAnswer1 = (EditText) findViewById(R.id.editTextAnswerOne);
+        userMadeAnswer2 = (EditText) findViewById(R.id.editTextAnswerTwo);
+        userMadeAnswer3 = (EditText) findViewById(R.id.editTextAnswerThree);
+        userMadeCorrectAnswer = (EditText) findViewById(R.id.editTextCorrectAnswer);
+        Button submitButton = (Button) findViewById(R.id.submit_button);
+        Button allQuizzesButton = (Button) findViewById(R.id.all_quizzes_button);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
+
 
         //Submit button should get user input store it in the database and make a toast to let
         //User know that it has been saved in the database.
+        //We are saving 4 answers to a question now and the last question should be the correct one.
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 titleOfQuiz = userMadeTitle.getText().toString();
                 questionOfQuiz = userMadeQuestion.getText().toString();
-                answerOfQuiz = userMadeAnswer.getText().toString();
+                answerOneQuiz = userMadeAnswer1.getText().toString();
+                answerTwoQuiz = userMadeAnswer2.getText().toString();
+                answerThreeQuiz = userMadeAnswer3.getText().toString();
+                answerCorrectQuiz = userMadeCorrectAnswer.getText().toString();
+
                 ctx = MakeQuiz.this;
                 DatabaseFunctions database = new DatabaseFunctions(ctx);
-                database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz, answerOfQuiz);
+                database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz,
+                        answerOneQuiz , answerTwoQuiz, answerThreeQuiz, answerCorrectQuiz);
                 Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
 
+                //Set all the fields to blank and start over.
+                userMadeTitle.setText("");
+                userMadeQuestion.setText("");
+                userMadeAnswer1.setText("");
+                userMadeAnswer2.setText("");
+                userMadeAnswer3.setText("");
+                userMadeCorrectAnswer.setText("");
+            }
+        });
+
+        allQuizzesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(allQuizzesScreen);
             }
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_make_quiz, menu);
+        getMenuInflater().inflate(R.menu.menu_options_bar, menu);
         return true;
     }
 

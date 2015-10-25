@@ -36,32 +36,17 @@ public class AllQuizTest {
      * the item to be deleted should be the item at the top of the list or the first item that starts with
      * title: which would be any entry in the list. So first we have to find the entry in the list adapter
      * then we can delete it.
-     * The first entry in my list according to the database I have made is
-     * title: title
-     * question: question
-     * answer: answers
-     * I chose this one because it was visible (at top of list) so I can check if the test deletes it or not.
+     * The first entry in my list according to the database I have made should display a title
      */
     @Test
     public void testDeleteEntry(){
-        onData(hasToString(startsWith("title: ")))
+        onData(hasToString(startsWith("EspressoTestTitle")))
                 .inAdapterView(withId(android.R.id.list))
-                .atPosition(0)
+                //.atPosition(0)
                 .perform(click());
         onView(withId(android.R.id.button1)).perform(click());
 
-       /** onData(hasToString(startsWith("question: EspressoTestQuestion")))
-                .inAdapterView(withId(android.R.id.list))
-                .atPosition(0)
-                .perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-
-        onData(hasToString(startsWith("answer: EspressoTestAnswer")))
-                .inAdapterView(withId(android.R.id.list))
-                .atPosition(0)
-                .perform(click());
-        onView(withId(android.R.id.button1)).perform(click());
-        **/
+        //HOW TO TEST THE ALERT DIALOG BOX AND CUSTOM LIST VIEW ADAPTER???
     }
 
     @After
@@ -69,3 +54,4 @@ public class AllQuizTest {
 
     }
 }
+

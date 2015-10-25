@@ -2,32 +2,24 @@ package edu.vcu.wes.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import java.util.ArrayList;
 
-/**
- * This method populated the list view with the custom array adapter list items.
- * It gets the titles of the questions/quizzes from the database and then it puts them into the list view
- * Using the custom array adapter to do so.
- */
-public class AllQuizzes extends ListActivity {
+public class AllFlashcards extends ListActivity {
     private Context context;
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_quizzes);
+        setContentView(R.layout.activity_all_flashcards);
         listView = (ListView) findViewById(android.R.id.list);
-        context = AllQuizzes.this;
-        new PopulateList("quiz", context, listView, "title");
+        context = AllFlashcards.this;
+        new PopulateList("flash", context, listView, "title");
 
     }
 
@@ -36,10 +28,12 @@ public class AllQuizzes extends ListActivity {
         super.onListItemClick(l, v, position, id);
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_options_bar, menu);
+        getMenuInflater().inflate(R.menu.menu_all_flashcards, menu);
         return true;
     }
 

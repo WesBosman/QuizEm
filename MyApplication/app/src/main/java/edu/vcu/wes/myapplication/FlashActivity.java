@@ -7,7 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class FlashActivity extends AppCompatActivity {
 
@@ -15,9 +16,39 @@ public class FlashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
-        /**
-         * May use this class later if we choose to also make flashcards as well as quizzes?
-         */
+        Button takeFlash = (Button) findViewById(R.id.take_flash_button);
+        Button makeFlash = (Button) findViewById(R.id.make_flash_button);
+        Button allFlash = (Button) findViewById(R.id.all_flash_button);
+
+        final Intent flashTake = new Intent(this, TakeFlashcards.class);
+        final Intent flashMake = new Intent(this, MakeFlashcards.class);
+        final Intent flashAll = new Intent(this, AllFlashcards.class);
+        FlashDatabaseFunctions flashDb = new FlashDatabaseFunctions(this);
+        if(!flashDb.isEmpty()) {
+            takeFlash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(flashTake);
+                }
+            });
+        }
+        else{
+            Toast.makeText(this, "There is nothing in the database.", Toast.LENGTH_SHORT).show();
+        }
+
+        makeFlash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(flashMake);
+            }
+        });
+
+        allFlash.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(flashAll);
+            }
+        });
     }
 
     @Override
@@ -41,9 +72,6 @@ public class FlashActivity extends AppCompatActivity {
                 openOptionsMenu();
                 return true;
 
-            case R.id.action_search:
-                onSearchRequested();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
