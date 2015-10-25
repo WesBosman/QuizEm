@@ -44,6 +44,7 @@ public class TakeFlashcards extends AppCompatActivity {
                 if (flag < questions.size()) {
                     setQuestions();
                     flag++;
+                    count++;
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
@@ -79,7 +80,9 @@ public class TakeFlashcards extends AppCompatActivity {
         ArrayList<String> flashA = populate("answers");
         try{
             flashCardAnswer.setText(flashA.get(count));
-            count++;
+
+
+
         }
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();

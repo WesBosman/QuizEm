@@ -35,5 +35,16 @@
             android:text="@string/all_quizzes"
             android:id="@+id/quiz_all"
             android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/help_btn"
+        android:background="@drawable/ic_help_black_24dp"
+        android:onClick="showTutorial"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
