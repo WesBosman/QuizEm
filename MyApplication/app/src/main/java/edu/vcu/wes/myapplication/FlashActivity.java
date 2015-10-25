@@ -9,8 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
-public class FlashActivity extends AppCompatActivity {
+
+
+public class FlashActivity extends AppCompatActivity implements View.OnClickListener{
+    private ShowcaseView showcaseview;
+    private int count = 0;
+    private Target t1, t2, t3,t4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +57,20 @@ public class FlashActivity extends AppCompatActivity {
                 startActivity(flashAll);
             }
         });
+
+        t1 = new ViewTarget(R.id.take_flash_button, this);
+        t2 = new ViewTarget(R.id.make_flash_button, this);
+        t3 = new ViewTarget(R.id.all_flash_button, this);
+        t4 = new ViewTarget(R.id.help_btn1, this);
+
+        showcaseview = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setOnClickListener(this)
+                .setContentTitle("Let's Get Started, Shall We?")
+                .setContentText("Quiz'Em")
+                .setStyle(R.style.Tutorial3)
+                .build();
+        showcaseview.setButtonText("Next");
     }
 
     @Override
@@ -76,4 +98,49 @@ public class FlashActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (count) {
+            case 0:
+                showcaseview.setShowcase(t1, true);
+                showcaseview.setContentTitle("Study FlashCards");
+                showcaseview.setContentTitle("Tap the 'Study Flashcards' button to review your flashcards!");
+                break;
+            case 1:
+                showcaseview.setShowcase(t2, true);
+                showcaseview.setContentTitle("Make Flashcards");
+                showcaseview.setContentTitle("Tap the 'Make Flashcards' button to create new flashcards");
+                break;
+
+            case 2:
+                showcaseview.setShowcase(t3, true);
+                showcaseview.setContentTitle("All FlashCards");
+                showcaseview.setContentTitle("Tap the 'All FlashCards' button to view your flashcards!");
+                break;
+            case 3:
+                showcaseview.setShowcase(t4, true);
+                showcaseview.setContentTitle("Quiz'Em");
+                showcaseview.setContentTitle("Need To Review Again? No Worries, Just Tap The Help Button!");
+                showcaseview.setButtonText("Close");
+                break;
+
+            case 4:
+                showcaseview.hide();
+                break;
+        }
+        count++;
+    }
+
+    public void showTutorial(View v) {
+        count = 0;
+        showcaseview.show();
+        showcaseview.setTarget(Target.NONE);
+        showcaseview.setContentTitle("Help");
+        showcaseview.setContentText("Quiz'Em");
+        showcaseview.setButtonText("Next");
+
+
+    }
+
 }
