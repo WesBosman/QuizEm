@@ -28,5 +28,6 @@
     <string name="title_activity_take_quiz">TakeQuiz</string>
     <string name="delete_text">Would you like to delete this?</string>
     <string name="quiz_saved">Quiz Saved</string>
+    <string name="tutorial_string">Tutorial</string>
 
 </resources>

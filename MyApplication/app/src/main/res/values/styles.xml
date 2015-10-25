@@ -4,5 +4,28 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+    
+    <style name="Title" parent="TextAppearance.ShowcaseView.Title">
+        <item name = "android:textColor">#FFF</item>
+    </style>
+
+    <style name = "Tutorial" parent="ShowcaseView.Light">
+        <item name = "sv_backgroundColor">#00E676</item>
+        <item name = "sv_showcaseColor">#1B5E20</item>
+        <item name = "sv_titleTextAppearance">@style/Title</item>
+    </style>
+
+    <style name="Title1" parent="TextAppearance.ShowcaseView.Title">
+        <item name = "android:textColor">#FFF</item>
+    </style>
+
+    <style name = "Tutorial2" parent="ShowcaseView.Light">
+        <item name = "sv_backgroundColor">#1DE9B6</item>
+        <item name = "sv_showcaseColor">#006064</item>
+        <item name = "sv_titleTextAppearance">@style/Title1</item>
+    </style>
+
+
+
 
 </resources>

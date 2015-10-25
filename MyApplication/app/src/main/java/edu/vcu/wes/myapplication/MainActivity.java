@@ -8,10 +8,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import android.os.Vibrator;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button quizBtn;
     private Button flashBtn;
+    private ShowcaseView showcaseview;
+    private int count = 0;
+    private Target t1, t2,t3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +41,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(flashScrn);
+
             }
         });
+
+        t1 = new ViewTarget(R.id.quiz_button, this);
+        t2 = new ViewTarget(R.id.flash_button, this);
+        t3 = new ViewTarget(R.id.tutorial_btn, this);
+
+        showcaseview = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setOnClickListener(this)
+                .setContentTitle("Let's Get Started, Shall We?")
+                .setContentText("Quiz'Em")
+                .setStyle(R.style.Tutorial)
+                .build();
+                showcaseview.setButtonText("Next");
     }
 
     @Override
@@ -58,5 +80,54 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v){
+        switch(count){
+            case 0:
+                showcaseview.setShowcase(t1, true);
+                showcaseview.setContentTitle("Quiz");
+                showcaseview.setContentTitle("Tap The Quiz Button To Create Questions And Quiz Yourself!");
+                break;
+            case 1:
+                showcaseview.setShowcase(t2,true);
+                showcaseview.setContentTitle("FlashCards");
+                showcaseview.setContentTitle("Tap The Flash Button To Create Flashcards And Study!");
+                break;
+
+            case 2:
+                showcaseview.setShowcase(t3,true);
+                showcaseview.setContentTitle("Tutorial");
+                showcaseview.setContentTitle("Need To Review Again? No Worries, Just Tap The Tutorial Icon!");
+                showcaseview.setButtonText("Close");
+                break;
+
+            case 3:
+                showcaseview.hide();
+                break;
+        }
+        count++;
+    }
+
+    public void showTutorial(View v){
+        count = 0;
+        showcaseview.show();
+        showcaseview.setTarget(Target.NONE);
+       showcaseview.setContentTitle("Tutorial");
+        showcaseview.setContentText("Quiz'Em");
+        showcaseview.setButtonText("Next");
+
+
+    }
+
+    public void toast(View v){
+        Toast to = Toast.makeText(MainActivity.this,"Flashcards",Toast.LENGTH_SHORT);
+        to.show();
+    }
+
+    public void vibrate(View v){
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(1000);
     }
 }
