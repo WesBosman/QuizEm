@@ -47,8 +47,10 @@ public class TakeFlashcards extends AppCompatActivity {
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
+
                     startActivity(flashResults);
                 }
+                flashCardAnswer.setText("");
 
             }
         });

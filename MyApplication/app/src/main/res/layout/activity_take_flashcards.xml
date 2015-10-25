@@ -13,6 +13,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="New Text"
         android:id="@+id/flashQuestionText"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -25,6 +27,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/flashCardAnswerText"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
