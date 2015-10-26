@@ -46,14 +46,15 @@ public class TakeFlashcards extends AppCompatActivity {
                 //if(!df.isFlashEmpty()) {
                 if (flag < questions.size()) {
                     setQuestions();
-
+                    flag++;
+                    count++;
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
                     startActivity(flashResults);
                     flashCardAnswer.setText("");
                 }
-                flag++;
+                //flag++;
                 // }
                 //else{
                 //   Toast.makeText(context, "Nothing was found in FlashCard Table", Toast.LENGTH_SHORT).show();
@@ -67,7 +68,6 @@ public class TakeFlashcards extends AppCompatActivity {
                 setAnswers();
             }
         });
-
     }
 
     private void setQuestions(){
@@ -85,7 +85,9 @@ public class TakeFlashcards extends AppCompatActivity {
         ArrayList<String> flashA = df.populateFlashCards(this, "answers");
         try{
             flashCardAnswer.setText(flashA.get(count));
-            count++;
+
+
+
         }
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();

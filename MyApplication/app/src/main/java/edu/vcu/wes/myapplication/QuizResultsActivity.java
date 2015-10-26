@@ -55,8 +55,12 @@ public class QuizResultsActivity extends AppCompatActivity {
 
         //Take the user back to the Take/Make/All Quizzes screen.
         mainMenuButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                TakeQuiz.correct = 0;
+                TakeQuiz.wrong = 0;
+                TakeQuiz.total = 0;
                 startActivity(mainMenu);
             }
         });

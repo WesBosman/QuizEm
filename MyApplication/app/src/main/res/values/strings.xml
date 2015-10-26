@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
 
     //Strings for buttons
+    <string name="tutorial_string">Tutorial</string>
     <string name="title_activity_quiz">Quiz</string>
     <string name="title_activity_flash">Flash</string>
     <string name="make_quiz">Make A Quiz</string>

@@ -32,5 +32,6 @@ dependencies {
     /** Was using the wrong build for espresso testing. Changed so tests would run
      *  The Old Version is above. Project is now compiled using version 22.
      */
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile 'com.android.support:appcompat-v7:22.2.0'
 }
