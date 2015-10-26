@@ -8,37 +8,38 @@
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="New Text"
         android:id="@+id/flashQuestionText"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="97dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="115dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text=""
         android:id="@+id/flashCardAnswerText"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/flashQuestionText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:id="@+id/flashNextButton"
+        android:id="@+id/nextFlashButton"
         android:background="@drawable/keyboard_arrow_right"
-        android:layout_marginBottom="81dp"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/getAnswerButton"
         android:layout_centerHorizontal="true" />
 
     <Button

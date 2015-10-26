@@ -40,8 +40,8 @@ public class MakeFlashcards extends AppCompatActivity {
                 questionFlash = userFlashQuestion.getText().toString();
                 answerFlash = userFlashAnswer.getText().toString();
                 ctx = MakeFlashcards.this;
-                FlashDatabaseFunctions flashDb = new FlashDatabaseFunctions(ctx);
-                flashDb.insertIntoDatabase(flashDb,titleFlash, questionFlash, answerFlash);
+                DatabaseFunctions flashDb = new DatabaseFunctions(ctx);
+                flashDb.insertIntoFlashDatabase(flashDb,titleFlash, questionFlash, answerFlash);
                 Toast.makeText(MakeFlashcards.this, "FlashCard Saved", Toast.LENGTH_SHORT).show();
 
                 //Set all back Strings back to blank.

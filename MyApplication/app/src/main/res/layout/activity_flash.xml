@@ -32,5 +32,6 @@
         android:layout_below="@+id/make_flash_button"
         android:layout_alignLeft="@+id/make_flash_button"
         android:layout_alignEnd="@+id/make_flash_button"
+        android:layout_alignRight="@+id/make_flash_button"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

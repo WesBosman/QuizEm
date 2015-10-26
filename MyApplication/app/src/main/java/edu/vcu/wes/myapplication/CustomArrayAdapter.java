@@ -52,25 +52,36 @@ public class CustomArrayAdapter extends BaseAdapter implements ListAdapter {
     /**
      * This method gets called when the minus image button in the list is clicked.
      * It then gets the position of the item in the list view.
-     * If the user clicks yes, it deletes the item from the list.
-     * NOTE STILL DOES NOT FULLY DELETE ROW FROM DATABASE!!!
+     * If the user clicks yes, it deletes the item from the list amd database.
      */
     public void delete(int position){
-        final String newQuestion = list.get(position);
-        final DatabaseFunctions dataFunctions = new DatabaseFunctions(context);
-        Log.d("CustomArrayAdapter: ", newQuestion);
-        AlertDialog.Builder deleteDialogBox = new AlertDialog.Builder(context);
-        deleteDialogBox.setTitle("Delete?");
-        deleteDialogBox.setMessage("Are you sure you want to delete this?");
-        final int positionToBeRemoved = position;
-        deleteDialogBox.setPositiveButton("No", null);
-        deleteDialogBox.setNegativeButton("Yes", new AlertDialog.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dataFunctions.deleteFromDatabase(newQuestion);
-                list.remove(positionToBeRemoved);
-                notifyDataSetChanged();
-            }});
-        deleteDialogBox.show();
+            final String newQuestion = list.get(position);
+            final DatabaseFunctions dataFunctions = new DatabaseFunctions(context);
+            Log.d("CustomArrayAdapter: ", newQuestion);
+            AlertDialog.Builder deleteDialogBox = new AlertDialog.Builder(context);
+            deleteDialogBox.setTitle("Delete?");
+            deleteDialogBox.setMessage("Are you sure you want to delete this?");
+            final int positionToBeRemoved = position;
+            deleteDialogBox.setPositiveButton("No", null);
+            deleteDialogBox.setNegativeButton("Yes", new AlertDialog.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //If context = AllQuiz then delete question
+                    if(context instanceof AllQuizzes) {
+                        dataFunctions.deleteFromDatabase(newQuestion);
+                        list.remove(positionToBeRemoved);
+                        notifyDataSetChanged();
+                    }
+
+                    //If context != AllQuizzes then delete flashcard
+                    else{
+                        dataFunctions.deleteFromFlashDatabase(newQuestion);
+                        list.remove(positionToBeRemoved);
+                        notifyDataSetChanged();
+                    }
+
+                }
+            });
+            deleteDialogBox.show();
     }
 
     /**

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class TakeFlashcards extends AppCompatActivity {
     ImageButton flashNext;
     Button getAnswer;
     private int flag, count = 0;
+    DatabaseFunctions df;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,42 +32,46 @@ public class TakeFlashcards extends AppCompatActivity {
         setContentView(R.layout.activity_take_flashcards);
         flashCardQuestion = (TextView) findViewById(R.id.flashQuestionText);
         flashCardAnswer = (TextView) findViewById(R.id.flashCardAnswerText);
-        flashNext = (ImageButton) findViewById(R.id.flashNextButton);
+        flashNext = (ImageButton) findViewById(R.id.nextFlashButton);
         getAnswer = (Button) findViewById(R.id.getAnswerButton);
         final Intent flashResults= new Intent (this, FlashResultsActivity.class);
+        df = new DatabaseFunctions(context);
         setQuestions();
 
 
         flashNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> questions = populate("questions");
-
+                ArrayList<String> questions = df.populateFlashCards(context, "questions");
+                //if(!df.isFlashEmpty()) {
                 if (flag < questions.size()) {
                     setQuestions();
-                    flag++;
+
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
-
                     startActivity(flashResults);
+                    flashCardAnswer.setText("");
                 }
-                flashCardAnswer.setText("");
-
+                flag++;
+                // }
+                //else{
+                //   Toast.makeText(context, "Nothing was found in FlashCard Table", Toast.LENGTH_SHORT).show();
+                //}
             }
         });
 
         getAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAnsers();;
+                setAnswers();
             }
         });
 
     }
 
     private void setQuestions(){
-        ArrayList<String> flashQ = populate("questions");
+        ArrayList<String> flashQ = df.populateFlashCards(this, "questions");
 
         try {
             flashCardQuestion.setText(flashQ.get(flag));
@@ -75,8 +81,8 @@ public class TakeFlashcards extends AppCompatActivity {
         }
     }
 
-    private void setAnsers(){
-        ArrayList<String> flashA = populate("answers");
+    private void setAnswers(){
+        ArrayList<String> flashA = df.populateFlashCards(this, "answers");
         try{
             flashCardAnswer.setText(flashA.get(count));
             count++;
@@ -84,41 +90,6 @@ public class TakeFlashcards extends AppCompatActivity {
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();
         }
-    }
-
-    public ArrayList<String> populate(String columns){
-            ArrayList<String> fromDatabase = new ArrayList<>();
-            try {
-                FlashDatabaseFunctions df = new FlashDatabaseFunctions(context);
-                Cursor c = df.getFromDatabase(df);
-                if (c != null) {
-                    if (c.moveToFirst()) {
-                        do {
-                            String flashTitle = c.getString(c.getColumnIndex(QuizTable.TableInfo.FLASH_TITLE));
-                            String flashQuestion = c.getString(c.getColumnIndex(QuizTable.TableInfo.FLASH_QUESTION));
-                            String flashAnswer = c.getString(c.getColumnIndex(QuizTable.TableInfo.FLASH_ANSWER));
-                            switch(columns){
-                                case "title":
-                                    fromDatabase.add(flashTitle);
-                                    break;
-                                case "questions":
-                                    fromDatabase.add(flashQuestion);
-                                    break;
-                                case "answers":
-                                    fromDatabase.add(flashAnswer);
-                                    break;
-                            }
-                        } while (c.moveToNext());
-                    }
-                }
-                c.close();
-                df.close();
-            } catch (SQLiteException se) {
-                Log.e(getClass().getSimpleName(), "Could not create or open the database");
-            }catch(NullPointerException ne){
-                Log.d("TakeQuiz: ", "Nullpointer thrown.");
-            }
-            return fromDatabase;
     }
 
     @Override

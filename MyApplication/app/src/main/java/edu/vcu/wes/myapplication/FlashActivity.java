@@ -23,8 +23,9 @@ public class FlashActivity extends AppCompatActivity {
         final Intent flashTake = new Intent(this, TakeFlashcards.class);
         final Intent flashMake = new Intent(this, MakeFlashcards.class);
         final Intent flashAll = new Intent(this, AllFlashcards.class);
-        FlashDatabaseFunctions flashDb = new FlashDatabaseFunctions(this);
-        if(!flashDb.isEmpty()) {
+        DatabaseFunctions flashDb = new DatabaseFunctions(this);
+
+        if(!flashDb.isFlashEmpty()) {
             takeFlash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

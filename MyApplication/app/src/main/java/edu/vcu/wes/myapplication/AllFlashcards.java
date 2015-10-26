@@ -19,8 +19,8 @@ public class AllFlashcards extends ListActivity {
         setContentView(R.layout.activity_all_flashcards);
         listView = (ListView) findViewById(android.R.id.list);
         context = AllFlashcards.this;
-        new PopulateList("flash", context, listView, "title");
-
+        DatabaseFunctions df = new DatabaseFunctions(context);
+        df.populateFlashList(context, listView, "title");
     }
 
     @Override
