@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showcaseview = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
                 .setOnClickListener(this)
-                .setContentTitle("Let's Get Started, Shall We?")
-                .setContentText("Quiz'Em")
+                .setContentTitle(getString(R.string.help_getstarted))
+                .setContentText(getString(R.string.quizem))
                 .setStyle(R.style.Tutorial)
                 .build();
-        showcaseview.setButtonText("Next");
+        showcaseview.setButtonText(getString(R.string.help_next));
     }
 
     @Override
@@ -97,20 +97,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (count) {
             case 0:
                 showcaseview.setShowcase(t1, true);
-                showcaseview.setContentTitle("Quiz");
-                showcaseview.setContentTitle("Tap The Quiz Button To Create Questions And Quiz Yourself!");
+                showcaseview.setContentTitle(getString(R.string.title_activity_quiz));
+                showcaseview.setContentTitle(getString(R.string.main_help_quiz));
                 break;
             case 1:
                 showcaseview.setShowcase(t2, true);
-                showcaseview.setContentTitle("FlashCards");
-                showcaseview.setContentTitle("Tap The Flash Button To Create Flashcards And Study!");
+                showcaseview.setContentTitle(getString(R.string.title_activity_flash));
+                showcaseview.setContentTitle(getString(R.string.main_help_flash));
                 break;
 
             case 2:
                 showcaseview.setShowcase(t3, true);
-                showcaseview.setContentTitle("Tutorial");
-                showcaseview.setContentTitle("Need To Review Again? No Worries, Just Tap The Tutorial Icon!");
-                showcaseview.setButtonText("Close");
+                showcaseview.setContentTitle(getString(R.string.tutorial_string));
+                showcaseview.setContentTitle(getString(R.string.main_help_help));
+                showcaseview.setButtonText(getString(R.string.close));
                 break;
 
             case 3:
@@ -124,9 +124,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);
-        showcaseview.setContentTitle("Tutorial");
-        showcaseview.setContentText("Quiz'Em");
-        showcaseview.setButtonText("Next");
+        showcaseview.setContentTitle(getString(R.string.tutorial_string));
+        showcaseview.setContentText(getString(R.string.quizem));
+        showcaseview.setButtonText(getString(R.string.help_next));
 
 
     }

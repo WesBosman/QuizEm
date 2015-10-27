@@ -69,11 +69,11 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         showcaseview = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
                 .setOnClickListener(this)
-                .setContentTitle("Don't know what to do next?\n Fear not! We've gotcha covered!")
-                .setContentText("Quiz'Em")
+                .setContentTitle(getString(R.string.help_assist))
+                .setContentText(getString(R.string.quizem))
                 .setStyle(R.style.Tutorial2)
                 .build();
-        showcaseview.setButtonText("Next");
+        showcaseview.setButtonText(getString(R.string.help_next));
     }
 
     @Override
@@ -103,25 +103,25 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         switch (count) {
             case 0:
                 showcaseview.setShowcase(t1, true);
-                showcaseview.setContentTitle("Take A Quiz");
-                showcaseview.setContentTitle("Tap The 'Take A Quiz' Button To Quiz Yourself After Creating Questions! ");
+                showcaseview.setContentTitle(getString(R.string.take_quiz));
+                showcaseview.setContentTitle(getString(R.string.quiz_help_takequiz));
                 break;
             case 1:
                 showcaseview.setShowcase(t2, true);
-                showcaseview.setContentTitle("Make A Quiz");
-                showcaseview.setContentTitle("Tap The 'Make A Quiz' Button To Make Questions And Answers!");
+                showcaseview.setContentTitle(getString(R.string.make_quiz));
+                showcaseview.setContentTitle(getString(R.string.quiz_help_makequiz));
                 break;
 
             case 2:
                 showcaseview.setShowcase(t3, true);
-                showcaseview.setContentTitle("All Quizzes");
-                showcaseview.setContentTitle("Tap The 'All Quizzes' Button To View All Questions!");
-                showcaseview.setButtonText("Close");
+                showcaseview.setContentTitle(getString(R.string.all_quizzes));
+                showcaseview.setContentTitle(getString(R.string.quiz_help_allquizzes));
                 break;
             case 3:
                 showcaseview.setShowcase(t4, true);
-                showcaseview.setContentTitle("Quiz'Em");
-                showcaseview.setContentTitle("Need To Review Again? No Worries, Just Tap The Help Button!");
+                showcaseview.setContentTitle(getString(R.string.quizem));
+                showcaseview.setContentTitle(getString(R.string.quiz_help_help));
+                showcaseview.setButtonText(getString(R.string.close));
                 break;
 
             case 4:
@@ -135,8 +135,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);
-        showcaseview.setContentTitle("Help");
-        showcaseview.setContentText("Quiz'Em");
-        showcaseview.setButtonText("Next");
+        showcaseview.setContentTitle(getString(R.string.help_button));
+        showcaseview.setContentText(getString(R.string.quizem));
+        showcaseview.setButtonText(getString(R.string.help_next));
     }
 }
