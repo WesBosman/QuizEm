@@ -64,6 +64,7 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
+
        helpBtn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
@@ -103,25 +104,25 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
         switch (count) {
             case 0:
                 showcaseview.setShowcase(t1, true);
-                showcaseview.setContentTitle("Study FlashCards");
-                showcaseview.setContentTitle("Tap the 'Study Flashcards' button to review your flashcards!");
+                showcaseview.setContentTitle(getString(R.string.take_flashcards));
+                showcaseview.setContentTitle(getString(R.string.flash_help_takeflashcards));
                 break;
             case 1:
                 showcaseview.setShowcase(t2, true);
-                showcaseview.setContentTitle("Make Flashcards");
-                showcaseview.setContentTitle("Tap the 'Make Flashcards' button to create new flashcards");
+                showcaseview.setContentTitle(getString(R.string.make_flashcards));
+                showcaseview.setContentTitle(getString(R.string.flash_help_makeflashcards));
                 break;
 
             case 2:
                 showcaseview.setShowcase(t3, true);
-                showcaseview.setContentTitle("All FlashCards");
-                showcaseview.setContentTitle("Tap the 'All FlashCards' button to view your flashcards!");
+                showcaseview.setContentTitle(getString(R.string.all_flashcards));
+                showcaseview.setContentTitle(getString(R.string.flash_help_allflashcards));
                 break;
             case 3:
                 showcaseview.setShowcase(t4, true);
-                showcaseview.setContentTitle("Quiz'Em");
-                showcaseview.setContentTitle("Need To Review Again? No Worries, Just Tap The Help Button!");
-                showcaseview.setButtonText("Close");
+                showcaseview.setContentTitle(getString(R.string.quizem));
+                showcaseview.setContentTitle(getString(R.string.flash_help_help));
+                showcaseview.setButtonText(getString(R.string.close));
                 break;
 
             case 4:
@@ -149,9 +150,9 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);
-        showcaseview.setContentTitle("Help");
-        showcaseview.setContentText("Quiz'Em");
-        showcaseview.setButtonText("Next");
+        showcaseview.setContentTitle(getString(R.string.help_button));
+        showcaseview.setContentText(getString(R.string.quizem));
+        showcaseview.setButtonText(getString(R.string.help_next));
 
 
     }
