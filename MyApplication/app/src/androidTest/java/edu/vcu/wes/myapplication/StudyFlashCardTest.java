@@ -1,10 +1,15 @@
 package edu.vcu.wes.myapplication;
 
 import android.content.Intent;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withChild;
@@ -44,6 +49,8 @@ public class StudyFlashCardTest {
          *       the test is run. The reason it will fail is because it assumes it only has to click
          *       the next button once because it only entered one flashcard.
          */
+
+        //Click flash button on main page.
         onView(withId(R.id.flash_button))
                 .perform(click());
 
@@ -64,19 +71,43 @@ public class StudyFlashCardTest {
         //Press back then click the flashcards button.
         pressBack();
 
-        onView(withId(R.id.take_flash_button))
+        onView(withId(R.id.take_flashcard_button))
                 .perform(click());
+
+        //Check the question.
+        onView(withId(R.id.flashQuestionText))
+                .check(matches(withText("The sky is blue.")));
 
         //Click get answer.
         onView(withId((R.id.getAnswerButton)))
                 .perform(click());
 
+        //Check the answer.
+        onView(withId(R.id.flashCardAnswerText))
+                .check(matches(withText("True")));
+
         //Click next image button.
         onView(withId(R.id.nextFlashButton))
                 .perform(click());
 
-        //This test works sometimes and fails at other times I think it has to do with the getAnswer button
-        //And the next image button.
+        //Should be on results page.
+        onView(withId(R.id.mainFlashButton))
+                .perform(click());
+
+        //Click flash button. Go to flash activity.
+        onView(withId(R.id.flash_button))
+                .perform(click());
+
+        //Click to go all flashcards.
+        onView(withId(R.id.all_flash_button))
+                .perform(click());
+
+        onData(startsWith("Espresso"))
+                .inAdapterView(withId(android.R.id.list))
+                .onChildView(withId(R.id.delete_btn))
+                .perform(click());
+        onView(withText(startsWith("Yes")))
+                .perform(click());
     }
 
     @After

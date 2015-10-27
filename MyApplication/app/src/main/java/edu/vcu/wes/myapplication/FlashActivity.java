@@ -25,7 +25,7 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
-        Button takeFlash = (Button) findViewById(R.id.take_flash_button);
+        Button takeFlash = (Button) findViewById(R.id.take_flashcard_button);
         Button makeFlash = (Button) findViewById(R.id.make_flash_button);
         Button allFlash = (Button) findViewById(R.id.all_flash_button);
         ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn1);
@@ -133,7 +133,7 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showTutorial(View v) {
-        t1 = new ViewTarget(R.id.take_flash_button, this);
+        t1 = new ViewTarget(R.id.take_flashcard_button, this);
         t2 = new ViewTarget(R.id.make_flash_button, this);
         t3 = new ViewTarget(R.id.all_flash_button, this);
         t4 = new ViewTarget(R.id.help_btn1, this);

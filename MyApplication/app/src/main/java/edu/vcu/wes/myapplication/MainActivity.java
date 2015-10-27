@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ShowcaseView showcaseview;
     private int count = 0;
     private Target t1, t2, t3;
-    private boolean firstRun = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        
+
     }
 
     @Override
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         t2 = new ViewTarget(R.id.flash_button, this);
         t3 = new ViewTarget(R.id.tutorial_btn, this);
 
-
         showcaseview = new ShowcaseView.Builder(this)
                 .setTarget(Target.NONE)
                 .setOnClickListener(this)
@@ -127,8 +125,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showcaseview.setContentText(getString(R.string.quizem));
         showcaseview.setButtonText(getString(R.string.help_next));
 
-
     }
-
-
 }

@@ -35,13 +35,13 @@ public class TakeFlashcards extends AppCompatActivity {
         flashNext = (ImageButton) findViewById(R.id.nextFlashButton);
         getAnswer = (Button) findViewById(R.id.getAnswerButton);
         final Intent flashResults = new Intent (this, FlashResultsActivity.class);
-
+        df = new DatabaseFunctions(TakeFlashcards.this);
         setQuestions();
 
 
 
         flashNext.setOnClickListener(new View.OnClickListener() {
-            DatabaseFunctions df = new DatabaseFunctions(TakeFlashcards.this);
+
             @Override
             public void onClick(View v) {
                 ArrayList<String> questions = df.populateFlashCards(context, "questions");
@@ -83,9 +83,6 @@ public class TakeFlashcards extends AppCompatActivity {
         ArrayList<String> flashA = df.populateFlashCards(this, "answers");
         try{
             flashCardAnswer.setText(flashA.get(count));
-
-
-
         }
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();

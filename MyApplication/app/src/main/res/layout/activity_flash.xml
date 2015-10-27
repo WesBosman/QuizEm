@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/take_flashcards"
-        android:id="@+id/take_flash_button"
+        android:id="@+id/take_flashcard_button"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp" />
@@ -20,9 +20,9 @@
         android:layout_height="wrap_content"
         android:text="@string/make_flashcards"
         android:id="@+id/make_flash_button"
-        android:layout_below="@+id/take_flash_button"
-        android:layout_alignLeft="@+id/take_flash_button"
-        android:layout_alignStart="@+id/take_flash_button" />
+        android:layout_below="@+id/take_flashcard_button"
+        android:layout_alignLeft="@+id/take_flashcard_button"
+        android:layout_alignStart="@+id/take_flashcard_button" />
 
     <Button
         android:layout_width="wrap_content"
