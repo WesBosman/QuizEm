@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
@@ -26,6 +27,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         Button takeQuiz = (Button) findViewById(R.id.quiz_take);
         Button makeQuiz = (Button) findViewById(R.id.quiz_make);
         Button allQuiz = (Button) findViewById(R.id.quiz_all);
+        ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn);
 
 
         final Intent quizMaker = new Intent(this, MakeQuiz.class);
@@ -61,19 +63,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        t1 = new ViewTarget(R.id.quiz_take, this);
-        t2 = new ViewTarget(R.id.quiz_make, this);
-        t3 = new ViewTarget(R.id.quiz_all, this);
-        t4 = new ViewTarget(R.id.help_btn, this);
-
-        showcaseview = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
-                .setOnClickListener(this)
-                .setContentTitle("Don't know what to do next?\n Fear not! We've gotcha covered!")
-                .setContentText("Quiz'Em")
-                .setStyle(R.style.Tutorial2)
-                .build();
-        showcaseview.setButtonText("Next");
+        helpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTutorial(v);
+            }
+        });
     }
 
     @Override
@@ -132,6 +127,20 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void showTutorial(View v) {
+        t1 = new ViewTarget(R.id.quiz_take, this);
+        t2 = new ViewTarget(R.id.quiz_make, this);
+        t3 = new ViewTarget(R.id.quiz_all, this);
+        t4 = new ViewTarget(R.id.help_btn, this);
+
+        showcaseview = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setOnClickListener(this)
+                .setContentTitle("Don't know what to do next?\n Fear not! We've gotcha covered!")
+                .setContentText("Quiz'Em")
+                .setStyle(R.style.Tutorial2)
+                .build();
+        showcaseview.setButtonText("Next");
+
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);

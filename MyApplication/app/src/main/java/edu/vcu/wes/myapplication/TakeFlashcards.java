@@ -34,31 +34,29 @@ public class TakeFlashcards extends AppCompatActivity {
         flashCardAnswer = (TextView) findViewById(R.id.flashCardAnswerText);
         flashNext = (ImageButton) findViewById(R.id.nextFlashButton);
         getAnswer = (Button) findViewById(R.id.getAnswerButton);
-        final Intent flashResults= new Intent (this, FlashResultsActivity.class);
-        df = new DatabaseFunctions(context);
+        final Intent flashResults = new Intent (this, FlashResultsActivity.class);
+
         setQuestions();
 
 
+
         flashNext.setOnClickListener(new View.OnClickListener() {
+            DatabaseFunctions df = new DatabaseFunctions(TakeFlashcards.this);
             @Override
             public void onClick(View v) {
                 ArrayList<String> questions = df.populateFlashCards(context, "questions");
-                //if(!df.isFlashEmpty()) {
-                if (flag < questions.size()) {
-                    setQuestions();
+
+                if (flag < questions.size() - 1) {
                     flag++;
                     count++;
+                    setQuestions();
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
                     startActivity(flashResults);
                     flashCardAnswer.setText("");
                 }
-                //flag++;
-                // }
-                //else{
-                //   Toast.makeText(context, "Nothing was found in FlashCard Table", Toast.LENGTH_SHORT).show();
-                //}
+                flag++;
             }
         });
 

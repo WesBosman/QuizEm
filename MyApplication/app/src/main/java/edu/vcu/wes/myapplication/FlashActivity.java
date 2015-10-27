@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
@@ -27,23 +28,27 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
         Button takeFlash = (Button) findViewById(R.id.take_flash_button);
         Button makeFlash = (Button) findViewById(R.id.make_flash_button);
         Button allFlash = (Button) findViewById(R.id.all_flash_button);
+        ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn1);
 
         final Intent flashTake = new Intent(this, TakeFlashcards.class);
         final Intent flashMake = new Intent(this, MakeFlashcards.class);
         final Intent flashAll = new Intent(this, AllFlashcards.class);
-        DatabaseFunctions flashDb = new DatabaseFunctions(this);
 
-        if(!flashDb.isFlashEmpty()) {
+
+
             takeFlash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DatabaseFunctions df = new DatabaseFunctions(FlashActivity.this);
+                    if(!df.isFlashEmpty()) {
                     startActivity(flashTake);
+                    }
+                    else{
+                        Toast.makeText(FlashActivity.this, "There is nothing in the database.", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
-        }
-        else{
-            Toast.makeText(this, "There is nothing in the database.", Toast.LENGTH_SHORT).show();
-        }
+
 
         makeFlash.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,19 +64,12 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        t1 = new ViewTarget(R.id.take_flash_button, this);
-        t2 = new ViewTarget(R.id.make_flash_button, this);
-        t3 = new ViewTarget(R.id.all_flash_button, this);
-        t4 = new ViewTarget(R.id.help_btn1, this);
-
-        showcaseview = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
-                .setOnClickListener(this)
-                .setContentTitle("Let's Get Started, Shall We?")
-                .setContentText("Quiz'Em")
-                .setStyle(R.style.Tutorial3)
-                .build();
-        showcaseview.setButtonText("Next");
+       helpBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               showTutorial(v);
+           }
+       });
     }
 
     @Override
@@ -134,6 +132,20 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void showTutorial(View v) {
+        t1 = new ViewTarget(R.id.take_flash_button, this);
+        t2 = new ViewTarget(R.id.make_flash_button, this);
+        t3 = new ViewTarget(R.id.all_flash_button, this);
+        t4 = new ViewTarget(R.id.help_btn1, this);
+
+        showcaseview = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setOnClickListener(this)
+                .setContentTitle("Let's Get Started, Shall We?")
+                .setContentText("Quiz'Em")
+                .setStyle(R.style.Tutorial3)
+                .build();
+        showcaseview.setButtonText("Next");
+
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);

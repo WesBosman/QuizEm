@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Button quizBtn = (Button) findViewById(R.id.quiz_button);
         Button flashBtn = (Button) findViewById(R.id.flash_button);
+        Button tutorialBtn = (Button) findViewById(R.id.tutorial_btn);
         final Intent quizScreen = new Intent(this, QuizActivity.class);
         final Intent flashScreen = new Intent(this, FlashActivity.class);
 
@@ -42,23 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        while(firstRun) {
-            t1 = new ViewTarget(R.id.quiz_button, this);
-            t2 = new ViewTarget(R.id.flash_button, this);
-            t3 = new ViewTarget(R.id.tutorial_btn, this);
+        tutorialBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTutorial(v);
+            }
+        });
 
-
-            showcaseview = new ShowcaseView.Builder(this)
-                    .setTarget(Target.NONE)
-                    .setOnClickListener(this)
-                    .setContentTitle("Let's Get Started, Shall We?")
-                    .setContentText("Quiz'Em")
-                    .setStyle(R.style.Tutorial)
-                    .build();
-            showcaseview.setButtonText("Next");
-            firstRun = false;
-
-        }
     }
 
     @Override
@@ -114,6 +105,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void showTutorial(View v) {
+        t1 = new ViewTarget(R.id.quiz_button, this);
+        t2 = new ViewTarget(R.id.flash_button, this);
+        t3 = new ViewTarget(R.id.tutorial_btn, this);
+
+
+        showcaseview = new ShowcaseView.Builder(this)
+                .setTarget(Target.NONE)
+                .setOnClickListener(this)
+                .setContentTitle("Let's Get Started, Shall We?")
+                .setContentText("Quiz'Em")
+                .setStyle(R.style.Tutorial)
+                .build();
+        showcaseview.setButtonText("Next");
+
         count = 0;
         showcaseview.show();
         showcaseview.setTarget(Target.NONE);

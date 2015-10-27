@@ -39,10 +39,24 @@ public class MakeFlashcards extends AppCompatActivity {
                 titleFlash = userFlashTitle.getText().toString();
                 questionFlash = userFlashQuestion.getText().toString();
                 answerFlash = userFlashAnswer.getText().toString();
+
+                final boolean checkHasLetter = titleFlash.matches(".*\\D.*") &&
+                        questionFlash.matches(".*\\D.*") &&
+                        answerFlash.matches(".*\\D.*");
+
+                final boolean checkHasNumber = titleFlash.matches(".*\\d.*") &&
+                        questionFlash.matches(".*\\d.*") &&
+                        answerFlash.matches(".*\\d.*");
+
                 ctx = MakeFlashcards.this;
                 DatabaseFunctions flashDb = new DatabaseFunctions(ctx);
-                flashDb.insertIntoFlashDatabase(flashDb,titleFlash, questionFlash, answerFlash);
-                Toast.makeText(MakeFlashcards.this, "FlashCard Saved", Toast.LENGTH_SHORT).show();
+                if(checkHasLetter || checkHasNumber) {
+                    flashDb.insertIntoFlashDatabase(flashDb, titleFlash, questionFlash, answerFlash);
+                    Toast.makeText(MakeFlashcards.this, "FlashCard Saved", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(ctx, "Not valid input", Toast.LENGTH_SHORT).show();
+                }
 
                 //Set all back Strings back to blank.
                 userFlashTitle.setText("");

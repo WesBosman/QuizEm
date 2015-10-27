@@ -43,34 +43,56 @@ public class MakeQuiz extends AppCompatActivity {
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
 
+
         //Submit button should get user input store it in the database and make a toast to let
         //User know that it has been saved in the database.
         //We are saving 4 answers to a question now and the last question should be the correct one.
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                titleOfQuiz = userMadeTitle.getText().toString();
-                questionOfQuiz = userMadeQuestion.getText().toString();
-                answerOneQuiz = userMadeAnswer1.getText().toString();
-                answerTwoQuiz = userMadeAnswer2.getText().toString();
-                answerThreeQuiz = userMadeAnswer3.getText().toString();
-                answerCorrectQuiz = userMadeCorrectAnswer.getText().toString();
 
-                ctx = MakeQuiz.this;
-                DatabaseFunctions database = new DatabaseFunctions(ctx);
-                database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz,
-                        answerOneQuiz , answerTwoQuiz, answerThreeQuiz, answerCorrectQuiz);
-                Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
 
-                //Set all the fields to blank and start over.
-                userMadeTitle.setText("");
-                userMadeQuestion.setText("");
-                userMadeAnswer1.setText("");
-                userMadeAnswer2.setText("");
-                userMadeAnswer3.setText("");
-                userMadeCorrectAnswer.setText("");
-            }
-        });
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    titleOfQuiz = userMadeTitle.getText().toString();
+                    questionOfQuiz = userMadeQuestion.getText().toString();
+                    answerOneQuiz = userMadeAnswer1.getText().toString();
+                    answerTwoQuiz = userMadeAnswer2.getText().toString();
+                    answerThreeQuiz = userMadeAnswer3.getText().toString();
+                    answerCorrectQuiz = userMadeCorrectAnswer.getText().toString();
+
+                    final boolean checkHasLetter = titleOfQuiz.matches(".*\\D.*") &&
+                            questionOfQuiz.matches(".*\\D.*") &&
+                            answerOneQuiz.matches(".*\\D.*") &&
+                            answerTwoQuiz.matches(".*\\D.*") &&
+                            answerThreeQuiz.matches(".*\\D.*") &&
+                            answerCorrectQuiz.toString().matches(".*\\D.*");
+
+                    final boolean checkHasNumber = titleOfQuiz.matches(".*\\d.*") &&
+                            questionOfQuiz.matches(".*\\d.*") &&
+                            answerOneQuiz.matches(".*\\d.*") &&
+                            answerTwoQuiz.matches(".*\\d.*") &&
+                            answerThreeQuiz.matches(".*\\d.*") &&
+                            answerCorrectQuiz.matches(".*\\d.*");
+
+                    ctx = MakeQuiz.this;
+                    DatabaseFunctions database = new DatabaseFunctions(ctx);
+                    if(checkHasLetter || checkHasNumber) {
+                        database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz,
+                                answerOneQuiz, answerTwoQuiz, answerThreeQuiz, answerCorrectQuiz);
+                        Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(ctx,"Not valid input",Toast.LENGTH_SHORT).show();
+                    }
+
+                    //Set all the fields to blank and start over.
+                    userMadeTitle.setText("");
+                    userMadeQuestion.setText("");
+                    userMadeAnswer1.setText("");
+                    userMadeAnswer2.setText("");
+                    userMadeAnswer3.setText("");
+                    userMadeCorrectAnswer.setText("");
+                }
+            });
 
         allQuizzesButton.setOnClickListener(new View.OnClickListener() {
             @Override
