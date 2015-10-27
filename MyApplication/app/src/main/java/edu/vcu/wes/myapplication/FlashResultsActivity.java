@@ -18,7 +18,7 @@ public class FlashResultsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flash_results);
         restartFlash = (Button) findViewById(R.id.restartFlashButton);
         mainFlashMenu = (Button) findViewById(R.id.mainFlashButton);
-        final Intent flashMenu = new Intent(this, FlashActivity.class);
+        final Intent flashMenu = new Intent(this, MainActivity.class);
         final Intent flashRestart = new Intent(this, TakeFlashcards.class);
 
         restartFlash.setOnClickListener(new View.OnClickListener() {

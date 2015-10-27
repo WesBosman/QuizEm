@@ -11,14 +11,13 @@ import android.widget.Button;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
-import android.os.Vibrator;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ShowcaseView showcaseview;
     private int count = 0;
     private Target t1, t2, t3;
+    private boolean firstRun = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +42,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        while(firstRun) {
+            t1 = new ViewTarget(R.id.quiz_button, this);
+            t2 = new ViewTarget(R.id.flash_button, this);
+            t3 = new ViewTarget(R.id.tutorial_btn, this);
 
-        t1 = new ViewTarget(R.id.quiz_button, this);
-        t2 = new ViewTarget(R.id.flash_button, this);
-        t3 = new ViewTarget(R.id.tutorial_btn, this);
 
-        showcaseview = new ShowcaseView.Builder(this)
-                .setTarget(Target.NONE)
-                .setOnClickListener(this)
-                .setContentTitle(getString(R.string.help_getstarted))
-                .setContentText(getString(R.string.quizem))
-                .setStyle(R.style.Tutorial)
-                .build();
-        showcaseview.setButtonText(getString(R.string.help_next));
+            showcaseview = new ShowcaseView.Builder(this)
+                    .setTarget(Target.NONE)
+                    .setOnClickListener(this)
+                    .setContentTitle(getString(R.string.help_getstarted))
+                    .setContentText(getString(R.string.quizem))
+                    .setStyle(R.style.Tutorial)
+                    .build();
+            showcaseview.setButtonText(getString(R.string.help_next));
+            firstRun = false;
+
+        }
+
     }
 
     @Override
@@ -71,16 +75,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
-        /** int id = item.getItemId();
-
-         //noinspection SimplifiableIfStatement
-         if (id == R.id.action_settings) {
-         return true;
-         }
-
-         return super.onOptionsItemSelected(item);
-         */
         switch (item.getItemId()) {
             case R.id.action_help:
                 openOptionsMenu();

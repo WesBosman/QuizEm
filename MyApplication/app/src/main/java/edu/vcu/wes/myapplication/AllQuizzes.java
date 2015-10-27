@@ -27,8 +27,8 @@ public class AllQuizzes extends ListActivity {
         setContentView(R.layout.activity_all_quizzes);
         listView = (ListView) findViewById(android.R.id.list);
         context = AllQuizzes.this;
-        new PopulateList("quiz", context, listView, "title");
-
+        DatabaseFunctions df = new DatabaseFunctions(context);
+        df.populateQuizList(context,listView,"title");
     }
 
     @Override

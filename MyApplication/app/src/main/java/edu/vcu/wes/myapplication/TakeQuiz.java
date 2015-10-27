@@ -23,6 +23,7 @@ public class TakeQuiz extends AppCompatActivity {
     RadioGroup rg;
     RadioButton rb1,rb2,rb3,rb4;
     ImageButton btnNext, btnBack;
+    DatabaseFunctions df;
     private String isCorrect;
     public static double percentCorrect;
     public static int correct, wrong, total;
@@ -34,6 +35,7 @@ public class TakeQuiz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
+        df = new DatabaseFunctions(context);
         rg = (RadioGroup)findViewById(R.id.rg);
         tv = (TextView)findViewById(R.id.questionsText);
         rb1 = (RadioButton)findViewById(R.id.questionOneButton);
@@ -56,7 +58,7 @@ public class TakeQuiz extends AppCompatActivity {
 
                 if(yourAnswer != null) {
                 String answerText = yourAnswer.getText().toString();
-                ArrayList<String> questions = populate("questions");
+                ArrayList<String> questions = df.populateQuiz(context, "questions");
 
                     if ((answerText).equals(getCorrectAnswer())) {
                         correct++;
@@ -114,8 +116,8 @@ public class TakeQuiz extends AppCompatActivity {
 
     //This method sets up the questions and answers after getting them from the database.
     private void setQuestions(){
-        ArrayList<String> questions = populate("questions");
-        ArrayList<String> answers = populate("answers");
+        ArrayList<String> questions = df.populateQuiz(context, "questions");
+        ArrayList<String> answers = df.populateQuiz(context, "answers");
 
         try {
             tv.setText(questions.get(flag));
@@ -133,52 +135,6 @@ public class TakeQuiz extends AppCompatActivity {
             Log.d("TakeQuiz:", "The database has nothing in it at this time.");
         }
 
-    }
-
-    /**
-     * This is an Example of DRY it either needs to be changed or I
-     * May need to move this method so it can be called from any class!!!
-     */
-    public ArrayList<String> populate(String columns){
-        ArrayList<String> fromDatabase = new ArrayList<>();
-        try {
-            DatabaseFunctions df = new DatabaseFunctions(context);
-            Cursor c = df.getFromDatabase(df);
-            if (c != null) {
-                if (c.moveToFirst()) {
-                    do {
-                        String title = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_TITLE));
-                        String question = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_QUESTION));
-                        String answerOne = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_ANSWER1));
-                        String answerTwo = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_ANSWER2));
-                        String answerThree = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_ANSWER3));
-                        String answerCorrect = c.getString(c.getColumnIndex(QuizTable.TableInfo.QUIZ_CORRECT_ANSWER));
-
-                        switch(columns){
-                            case "title":
-                                fromDatabase.add(title);
-                                break;
-                            case "questions":
-                                fromDatabase.add(question);
-                                break;
-                            case "answers":
-                                fromDatabase.add(answerOne);
-                                fromDatabase.add(answerTwo);
-                                fromDatabase.add(answerThree);
-                                fromDatabase.add(answerCorrect);
-                                break;
-                        }
-                    } while (c.moveToNext());
-                }
-            }
-            c.close();
-            df.close();
-        } catch (SQLiteException se) {
-            Log.e(getClass().getSimpleName(), "Could not create or open the database");
-        }catch(NullPointerException ne){
-            Log.d("TakeQuiz: ", "Nullpointer thrown.");
-        }
-        return fromDatabase;
     }
 
     @Override

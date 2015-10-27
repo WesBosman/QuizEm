@@ -28,7 +28,7 @@ public class QuizResultsActivity extends AppCompatActivity {
                                  + TakeQuiz.total) + "\n" +
                         "Percent: " + String.format("%4.2f  ", TakeQuiz.percentCorrect) + "%");
 
-        final Intent mainMenu = new Intent(this, QuizActivity.class);
+        final Intent mainMenu = new Intent(this, MainActivity.class);
         final Intent restart = new Intent(this, TakeQuiz.class);
         Button restartButton = (Button) findViewById(R.id.restartButton);
         Button mainMenuButton = (Button) findViewById(R.id.mainMenuButton);
