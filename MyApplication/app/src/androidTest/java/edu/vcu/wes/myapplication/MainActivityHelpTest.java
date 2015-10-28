@@ -15,6 +15,8 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
@@ -41,14 +43,36 @@ public class MainActivityHelpTest {
         onView(withId(R.id.tutorial_btn))
                 .perform(click());
 
-        //Click next button
+        //First screen of MainActivity help
+        /*onView(withId(com.github.amlcurran.showcaseview.ShowcaseView.))
+                .check(matches(withText(R.string.help_getstarted)));
+        onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_sub_text))
+                .check(matches(withText(R.string.quizem)));*/
+        onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
+                .check(matches(withText(R.string.help_next)))
+                .perform(click());
 
+        //Second screen, showcasing quiz button
+        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+                .check(matches(withText(R.string.main_help_quiz)));*/
+        onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
+                .check(matches(withText(R.string.help_next)))
+                .perform(click());
 
-        //Click next button
+        //Third screen, showcasing flash button
+        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+                .check(matches(withText(R.string.main_help_flash)));*/
+        onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
+                .check(matches(withText(R.string.help_next)))
+                .perform(click());
 
-        //Click next button
+        //Fourth and final screen, showcasing help button
+        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+                .check(matches(withText(R.string.main_help_help)));*/
+        onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
+                .check(matches(withText(R.string.close)))
+                .perform(click());
 
-        //Should be back on the original screen
 
     }
 
