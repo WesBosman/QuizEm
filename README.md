@@ -18,6 +18,6 @@ Future Implementation
 The “Flash” and “Take a quiz” buttons on the home screen are for layout purposes and not functional as of yet. The functionality of these buttons will be developed in the next iteration.
 
 Miscellaneous
-Background images and layouts for the app were created in Photoshop. These have not been implemented yet in the app. However, they have been pushed to GitHub and marked off as a mileston. In the next iteration we plan to add more functionality to the app as well as replace the plain layout of the app with the backgrounds.
+Background images and layouts for the app were created in Photoshop. These have not been implemented yet in the app. However, they have been pushed to GitHub and marked off as a milestone. In the next iteration we plan to add more functionality to the app as well as replace the plain layout of the app with the backgrounds.
 
 
