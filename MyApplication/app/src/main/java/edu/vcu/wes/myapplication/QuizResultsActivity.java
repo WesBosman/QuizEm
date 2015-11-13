@@ -27,6 +27,9 @@ public class QuizResultsActivity extends AppCompatActivity {
                         "Ratio: " + String.format("%10s", TakeQuiz.correct + " / "
                                  + TakeQuiz.total) + "\n" +
                         "Percent: " + String.format("%4.2f  ", TakeQuiz.percentCorrect) + "%");
+        TakeQuiz.correct = 0;
+        TakeQuiz.wrong = 0;
+        TakeQuiz.total = 0;
 
         final Intent mainMenu = new Intent(this, MainActivity.class);
         final Intent restart = new Intent(this, TakeQuiz.class);
@@ -37,10 +40,6 @@ public class QuizResultsActivity extends AppCompatActivity {
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TakeQuiz.correct = 0;
-                TakeQuiz.wrong = 0;
-                TakeQuiz.total = 0;
-
                 //Prevents user from going backwards after deleting a quiz into results screen
                 //and trying to retake the last quiz when it is no longer there.
                 DatabaseFunctions df = new DatabaseFunctions(QuizResultsActivity.this);
@@ -58,9 +57,9 @@ public class QuizResultsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                TakeQuiz.correct = 0;
-                TakeQuiz.wrong = 0;
-                TakeQuiz.total = 0;
+                //TakeQuiz.correct = 0;
+                //TakeQuiz.wrong = 0;
+                //TakeQuiz.total = 0;
                 startActivity(mainMenu);
             }
         });
@@ -87,5 +86,14 @@ public class QuizResultsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, QuizActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 }
