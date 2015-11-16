@@ -14,13 +14,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TakeQuiz extends AppCompatActivity {
     TextView tv;
     Context context = this;
     RadioGroup rg;
     RadioButton rb1,rb2,rb3,rb4;
-    ImageButton btnNext, btnBack;
+    ImageButton btnNext;
     DatabaseFunctions df;
     private String isCorrect;
     public static double percentCorrect;
@@ -103,6 +104,15 @@ public class TakeQuiz extends AppCompatActivity {
         return isCorrect;
     }
 
+    private int randomNumber(){
+        int minNumber = 1;
+        int maxNumber = 5;
+        Random randomNumber = new Random();
+
+        int myNumber = randomNumber.nextInt(maxNumber - minNumber + 1 ) + minNumber;
+        return myNumber;
+    }
+
     //This method sets up the questions and answers after getting them from the database.
     private void setQuestions(){
         ArrayList<String> questions = df.populateQuiz(context, "questions");
@@ -110,15 +120,53 @@ public class TakeQuiz extends AppCompatActivity {
 
         try {
             tv.setText(questions.get(flag));
-            rb1.setText(answers.get(count));
-            count++;
-            rb2.setText(answers.get(count));
-            count++;
-            rb3.setText(answers.get(count));
-            count++;
-            rb4.setText(answers.get(count));
-            setCorrectAnswer(answers.get(count));
-            count++;
+            switch(randomNumber()){
+                case 1:
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 2:
+                    rb4.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb1.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 3:
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 4:
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+            }
+
         }catch(IndexOutOfBoundsException ie) {
             Toast.makeText(getApplicationContext(), "Nothing in database.",Toast.LENGTH_LONG).show();
             Log.d("TakeQuiz:", "The database has nothing in it at this time.");

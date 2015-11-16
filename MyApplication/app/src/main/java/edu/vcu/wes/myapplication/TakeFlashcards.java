@@ -2,6 +2,7 @@ package edu.vcu.wes.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class TakeFlashcards extends AppCompatActivity {
@@ -60,14 +60,8 @@ public class TakeFlashcards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 flipCard();
-                //setAnswers();
             }
         });
-    }
-
-    public void onCardClick(View view)
-    {
-        flipCard();
     }
 
     private void flipCard() {
@@ -77,13 +71,23 @@ public class TakeFlashcards extends AppCompatActivity {
 
         FlashCardFlip flipAnimation = new FlashCardFlip(cardFace, cardBack);
         //Set the answers once the get answer button is clicked.
-        setAnswers();
+        //This has to be delayed in order to make it show up on the back screen
+        //Without first showing up on the front screen or having to hit get answer twice.
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setAnswers();
+            }
+        }, 500);
 
         if (cardFace.getVisibility() == View.GONE) {
-
             flipAnimation.reverse();
+
         }
         rootLayout.startAnimation(flipAnimation);
+
+
     }
 
     private void setQuestions(){

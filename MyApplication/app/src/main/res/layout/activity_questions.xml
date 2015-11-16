@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="edu.vcu.wes.myapplication.TakeQuiz"
-    android:background="@drawable/background_all">
+    android:background="#ffE5F7FF">
 
 
     <LinearLayout

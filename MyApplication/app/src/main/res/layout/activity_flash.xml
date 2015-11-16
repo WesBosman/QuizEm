@@ -31,12 +31,10 @@
         android:layout_height="150dp"
         android:text="@string/all_flashcards"
         android:id="@+id/all_flash_button"
-        android:layout_below="@+id/make_flash_button"
+        android:background="@drawable/all_flash_button"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/make_flash_button"
-        android:layout_alignEnd="@+id/make_flash_button"
-        android:layout_alignRight="@+id/make_flash_button"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/all_flash_button"/>
+        android:layout_alignStart="@+id/make_flash_button" />
 
     <ImageButton
         android:layout_width="wrap_content"
