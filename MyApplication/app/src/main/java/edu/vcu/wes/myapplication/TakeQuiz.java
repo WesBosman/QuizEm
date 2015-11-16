@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 
 public class TakeQuiz extends AppCompatActivity {
     TextView tv;
@@ -26,8 +26,8 @@ public class TakeQuiz extends AppCompatActivity {
     private String isCorrect;
     public static double percentCorrect;
     public static int correct, wrong, total;
+    private int flag = 0;
     private int count = 0;
-    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,24 +104,29 @@ public class TakeQuiz extends AppCompatActivity {
         return isCorrect;
     }
 
+    //This method is not really random. Instead it makes an array list, shuffles it and then
+    //Takes the first number out of the list to help with randomizing the correct answers.
     private int randomNumber(){
-        int minNumber = 1;
-        int maxNumber = 5;
-        Random randomNumber = new Random();
-
-        int myNumber = randomNumber.nextInt(maxNumber - minNumber + 1 ) + minNumber;
-        return myNumber;
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        Collections.shuffle(numbers);
+        return numbers.remove(0);
     }
 
     //This method sets up the questions and answers after getting them from the database.
+    //Uses a switch statement for randomizing where the correct answers are on the page
     private void setQuestions(){
         ArrayList<String> questions = df.populateQuiz(context, "questions");
         ArrayList<String> answers = df.populateQuiz(context, "answers");
 
         try {
-            tv.setText(questions.get(flag));
-            switch(randomNumber()){
+
+            switch (randomNumber()) {
                 case 1:
+                    tv.setText(questions.get(flag));
                     rb1.setText(answers.get(count));
                     count++;
                     rb2.setText(answers.get(count));
@@ -133,39 +138,44 @@ public class TakeQuiz extends AppCompatActivity {
                     count++;
                     break;
                 case 2:
-                    rb4.setText(answers.get(count));
-                    count++;
-                    rb2.setText(answers.get(count));
-                    count++;
+                    tv.setText(questions.get(flag));
                     rb3.setText(answers.get(count));
                     count++;
+                    rb4.setText(answers.get(count));
+                    count++;
                     rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
                     setCorrectAnswer(answers.get(count));
                     count++;
                     break;
                 case 3:
-                    rb1.setText(answers.get(count));
+                    tv.setText(questions.get(flag));
+                    rb2.setText(answers.get(count));
                     count++;
                     rb3.setText(answers.get(count));
                     count++;
-                    rb2.setText(answers.get(count));
-                    count++;
                     rb4.setText(answers.get(count));
+                    count++;
+                    rb1.setText(answers.get(count));
                     setCorrectAnswer(answers.get(count));
                     count++;
                     break;
                 case 4:
+                    tv.setText(questions.get(flag));
+                    rb4.setText(answers.get(count));
+                    count++;
                     rb1.setText(answers.get(count));
                     count++;
                     rb2.setText(answers.get(count));
-                    count++;
-                    rb4.setText(answers.get(count));
                     count++;
                     rb3.setText(answers.get(count));
                     setCorrectAnswer(answers.get(count));
                     count++;
                     break;
+
             }
+
 
         }catch(IndexOutOfBoundsException ie) {
             Toast.makeText(getApplicationContext(), "Nothing in database.",Toast.LENGTH_LONG).show();

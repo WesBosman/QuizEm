@@ -65,9 +65,9 @@ public class TakeFlashcards extends AppCompatActivity {
     }
 
     private void flipCard() {
-        View rootLayout = (View) findViewById(R.id.flash_activity_root);
-        View cardFace = (View) findViewById(R.id.flash_activity_card_front);
-        View cardBack = (View) findViewById(R.id.flash_activity_card_back);
+        View rootLayout = findViewById(R.id.flash_activity_root);
+        View cardFace = findViewById(R.id.flash_activity_card_front);
+        View cardBack = findViewById(R.id.flash_activity_card_back);
 
         FlashCardFlip flipAnimation = new FlashCardFlip(cardFace, cardBack);
         //Set the answers once the get answer button is clicked.

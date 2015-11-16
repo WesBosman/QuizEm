@@ -19,6 +19,7 @@ import java.util.HashMap;
  * This class creates a custom array adapter that uses a custom list item xml file to create
  * A text view next to an image button
  * The text view holds the name of the question/quiz entered.
+ * The item can now be clicked an expanded.
  * The image button holds an X which is used to delete the question/quiz from the database.
  * Created by Wes on 10/19/2015.
  */
@@ -173,6 +174,7 @@ public class CustomArrayAdapter extends BaseExpandableListAdapter { //implements
 
 /**
  * This Is The Old Code incase we still need part of it ............................................
+ * We could use this for a tabbed view on the All Quizzes/All Flash pages...........................
 
 public class CustomArrayAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<>();
