@@ -64,7 +64,7 @@ public class MakeQuiz extends AppCompatActivity {
                             answerOneQuiz.matches(".*\\D.*") &&
                             answerTwoQuiz.matches(".*\\D.*") &&
                             answerThreeQuiz.matches(".*\\D.*") &&
-                            answerCorrectQuiz.toString().matches(".*\\D.*");
+                            answerCorrectQuiz.matches(".*\\D.*");
 
                     final boolean checkHasNumber = titleOfQuiz.matches(".*\\d.*") &&
                             questionOfQuiz.matches(".*\\d.*") &&

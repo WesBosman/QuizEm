@@ -2,15 +2,11 @@ package edu.vcu.wes.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import java.util.ArrayList;
 
 /**
  * This method populated the list view with the custom array adapter list items.
@@ -18,15 +14,13 @@ import java.util.ArrayList;
  * Using the custom array adapter to do so.
  */
 public class AllQuizzes extends ListActivity {
-    private Context context;
-    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quizzes);
-        listView = (ListView) findViewById(android.R.id.list);
-        context = AllQuizzes.this;
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        Context context = AllQuizzes.this;
         DatabaseFunctions df = new DatabaseFunctions(context);
         df.populateQuizList(context,listView,"title");
     }

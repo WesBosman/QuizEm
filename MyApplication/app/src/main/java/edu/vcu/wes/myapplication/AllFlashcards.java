@@ -2,7 +2,6 @@ package edu.vcu.wes.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,15 +9,13 @@ import android.view.View;
 import android.widget.ListView;
 
 public class AllFlashcards extends ListActivity {
-    private Context context;
-    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_flashcards);
-        listView = (ListView) findViewById(android.R.id.list);
-        context = AllFlashcards.this;
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        Context context = AllFlashcards.this;
         DatabaseFunctions df = new DatabaseFunctions(context);
         df.populateFlashList(context, listView, "title");
     }

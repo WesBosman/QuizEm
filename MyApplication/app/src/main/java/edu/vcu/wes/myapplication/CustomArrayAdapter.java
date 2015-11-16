@@ -87,10 +87,6 @@ public class CustomArrayAdapter extends BaseAdapter implements ListAdapter {
     /**
      * Initialize the view with the custom created list item that has a delete button in it.
      * When the delete button is clicked call the delete (alert dialog box function).
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
