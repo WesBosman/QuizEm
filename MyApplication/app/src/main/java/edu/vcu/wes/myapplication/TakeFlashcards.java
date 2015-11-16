@@ -59,9 +59,31 @@ public class TakeFlashcards extends AppCompatActivity {
         getAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAnswers();
+                flipCard();
+                //setAnswers();
             }
         });
+    }
+
+    public void onCardClick(View view)
+    {
+        flipCard();
+    }
+
+    private void flipCard() {
+        View rootLayout = (View) findViewById(R.id.flash_activity_root);
+        View cardFace = (View) findViewById(R.id.flash_activity_card_front);
+        View cardBack = (View) findViewById(R.id.flash_activity_card_back);
+
+        FlashCardFlip flipAnimation = new FlashCardFlip(cardFace, cardBack);
+        //Set the answers once the get answer button is clicked.
+        setAnswers();
+
+        if (cardFace.getVisibility() == View.GONE) {
+
+            flipAnimation.reverse();
+        }
+        rootLayout.startAnimation(flipAnimation);
     }
 
     private void setQuestions(){

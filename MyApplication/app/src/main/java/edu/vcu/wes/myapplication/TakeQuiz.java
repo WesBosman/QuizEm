@@ -41,7 +41,6 @@ public class TakeQuiz extends AppCompatActivity {
         rb3 = (RadioButton)findViewById(R.id.questionThreeButton);
         rb4 = (RadioButton)findViewById(R.id.questionFourButton);
         btnNext = (ImageButton)findViewById(R.id.nextButton);
-        btnBack = (ImageButton) findViewById(R.id.backButton);
 
         //This calls the method for initially setting the questions and answers.
         //If there is information in the database populate the list.
@@ -89,14 +88,6 @@ public class TakeQuiz extends AppCompatActivity {
             }
         });
 
-        // Back button not yet implemented want it invisible on first page and then visible on the following pages.
-        // Would be useful so that the user can go back to edit questions before submiting.
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TakeQuiz.this, "Feature not yet implemented",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     //Set the correct percentage to a static variable that can be called from outside of this class.

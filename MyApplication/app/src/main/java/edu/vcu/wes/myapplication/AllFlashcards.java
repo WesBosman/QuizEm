@@ -2,10 +2,13 @@ package edu.vcu.wes.myapplication;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class AllFlashcards extends ListActivity {
@@ -14,10 +17,21 @@ public class AllFlashcards extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_flashcards);
-        ListView listView = (ListView) findViewById(android.R.id.list);
+        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
         Context context = AllFlashcards.this;
         DatabaseFunctions df = new DatabaseFunctions(context);
-        df.populateFlashList(context, listView, "title");
+        df.populateFlashList(context, listView);
+
+        //Set Home Button
+        ImageButton home = (ImageButton) findViewById(R.id.home_button);
+        final Intent homeScreen = new Intent(this, MainActivity.class);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(homeScreen);
+            }
+        });
     }
 
     @Override

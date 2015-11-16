@@ -24,9 +24,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        Button takeQuiz = (Button) findViewById(R.id.quiz_take);
-        Button makeQuiz = (Button) findViewById(R.id.quiz_make);
-        Button allQuiz = (Button) findViewById(R.id.quiz_all);
+        ImageButton takeQuiz = (ImageButton) findViewById(R.id.quiz_take);
+        ImageButton makeQuiz = (ImageButton) findViewById(R.id.quiz_make);
+        ImageButton allQuiz = (ImageButton) findViewById(R.id.quiz_all);
         ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn);
 
 

@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MakeFlashcards extends AppCompatActivity {
@@ -29,9 +29,18 @@ public class MakeFlashcards extends AppCompatActivity {
         userFlashTitle = (EditText) findViewById(R.id.flashCardsTitle);
         userFlashQuestion = (EditText) findViewById(R.id.flashCardsQuestion);
         userFlashAnswer = (EditText) findViewById(R.id.flashCardsAnswer);
-        Button submitFlash = (Button) findViewById(R.id.submit_FlashCards_button);
-        Button allFlash = (Button) findViewById(R.id.all_flashCards_button);
+        ImageButton submitFlash = (ImageButton) findViewById(R.id.submit_FlashCards_button);
+        ImageButton allFlash = (ImageButton) findViewById(R.id.all_flashCards_button);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.home_Button);
         final Intent allFlashScreen = new Intent(this, AllFlashcards.class);
+        final Intent homeScreen = new Intent(this, MainActivity.class);
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(homeScreen);
+            }
+        });
 
         submitFlash.setOnClickListener(new View.OnClickListener() {
             @Override

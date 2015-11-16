@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MakeQuiz extends AppCompatActivity {
@@ -38,8 +39,10 @@ public class MakeQuiz extends AppCompatActivity {
         userMadeAnswer2 = (EditText) findViewById(R.id.editTextAnswerTwo);
         userMadeAnswer3 = (EditText) findViewById(R.id.editTextAnswerThree);
         userMadeCorrectAnswer = (EditText) findViewById(R.id.editTextCorrectAnswer);
-        Button submitButton = (Button) findViewById(R.id.submit_button);
-        Button allQuizzesButton = (Button) findViewById(R.id.all_quizzes_button);
+        ImageButton submitButton = (ImageButton) findViewById(R.id.submit_button);
+        ImageButton allQuizzesButton = (ImageButton) findViewById(R.id.all_quizzes_button);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        final Intent homeScreen = new Intent(this, MainActivity.class);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
 
@@ -98,6 +101,13 @@ public class MakeQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(allQuizzesScreen);
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(homeScreen);
             }
         });
 

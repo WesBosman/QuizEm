@@ -25,9 +25,9 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
-        Button takeFlash = (Button) findViewById(R.id.take_flashcard_button);
-        Button makeFlash = (Button) findViewById(R.id.make_flash_button);
-        Button allFlash = (Button) findViewById(R.id.all_flash_button);
+        ImageButton takeFlash = (ImageButton) findViewById(R.id.take_flashcard_button);
+        ImageButton makeFlash = (ImageButton) findViewById(R.id.make_flash_button);
+        ImageButton allFlash = (ImageButton) findViewById(R.id.all_flash_button);
         ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn1);
 
         final Intent flashTake = new Intent(this, TakeFlashcards.class);

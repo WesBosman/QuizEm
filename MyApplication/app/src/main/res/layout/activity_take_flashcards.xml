@@ -1,38 +1,66 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.vcu.wes.myapplication.TakeFlashcards">
+    tools:context="edu.vcu.wes.myapplication.TakeFlashcards"
+    android:background="@drawable/background_inverted_all"
+    android:id="@+id/flash_activity_root"
+    >
+
+    <RelativeLayout
+        android:id="@+id/flash_activity_card_front"
+        android:layout_width="300dp"
+        android:layout_height="407dp"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:layout_above="@+id/nextFlashButton">
+        //--- OLD CODE --->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Question Goes Here"
+            android:id="@+id/flashQuestionText"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:layout_marginTop="97dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 
-    <TextView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@+id/flash_activity_card_back"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="New Text"
-        android:id="@+id/flashQuestionText"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:layout_marginTop="97dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="edu.vcu.wes.myapplication.TakeFlashcards">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:id="@+id/flashCardAnswerText"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:layout_below="@+id/flashQuestionText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="70dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/flashCardAnswerText"
+            android:gravity="center"
+            android:paddingTop="175dp"
+            android:includeFontPadding="false"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
 
     <ImageButton
         android:layout_width="48dp"
