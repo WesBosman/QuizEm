@@ -45,6 +45,7 @@ public class FlashActivity extends AppCompatActivity implements View.OnClickList
                     else{
                         Toast.makeText(FlashActivity.this, "There is nothing in the database.", Toast.LENGTH_LONG).show();
                     }
+                    df.close();
                 }
             });
 

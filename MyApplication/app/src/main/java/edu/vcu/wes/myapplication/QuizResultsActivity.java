@@ -49,6 +49,7 @@ public class QuizResultsActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(QuizResultsActivity.this, "Nothing was found in the database", Toast.LENGTH_LONG).show();
                 }
+                df.close();
             }
         });
 
@@ -57,9 +58,6 @@ public class QuizResultsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //TakeQuiz.correct = 0;
-                //TakeQuiz.wrong = 0;
-                //TakeQuiz.total = 0;
                 startActivity(mainMenu);
             }
         });

@@ -2,6 +2,8 @@ package edu.vcu.wes.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,10 +61,14 @@ public class TakeQuiz extends AppCompatActivity {
                 ArrayList<String> questions = df.populateQuiz(context, "questions");
 
                     if ((answerText).equals(getCorrectAnswer())) {
+                        yourAnswer.setPadding(10, 10, 10, 10);
+                        yourAnswer.setBackgroundColor(Color.GREEN); //Highlight correct answer.
                         correct++;
                         Toast.makeText(TakeQuiz.this, "Correct", Toast.LENGTH_SHORT).show();
 
                     } else {
+                        yourAnswer.setPadding(10, 10, 10, 10);
+                        yourAnswer.setBackgroundColor(Color.RED); //Set color red if wrong answer.
                         wrong++;
                         Toast.makeText(TakeQuiz.this, "Incorrect", Toast.LENGTH_SHORT).show();
                     }
@@ -70,7 +76,17 @@ public class TakeQuiz extends AppCompatActivity {
 
                     //If there are more questions then set them and allow the user to answer them.
                     if (flag < questions.size()) {
-                        setQuestions();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setQuestions();
+                                rb1.setBackgroundColor(Color.TRANSPARENT);
+                                rb2.setBackgroundColor(Color.TRANSPARENT);
+                                rb3.setBackgroundColor(Color.TRANSPARENT);
+                                rb4.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }, 1000);
                     }
 
                     //Otherwise set the percentage of correct answers out of the total
@@ -175,7 +191,7 @@ public class TakeQuiz extends AppCompatActivity {
                     break;
 
             }
-
+        df.close();
 
         }catch(IndexOutOfBoundsException ie) {
             Toast.makeText(getApplicationContext(), "Nothing in database.",Toast.LENGTH_LONG).show();

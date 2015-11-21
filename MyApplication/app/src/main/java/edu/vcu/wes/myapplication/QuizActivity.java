@@ -44,6 +44,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Toast.makeText(QuizActivity.this, "There is no info in database to Take a Quiz.", Toast.LENGTH_LONG).show();
                 }
+                df.close();
             }
         });
 

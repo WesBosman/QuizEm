@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TabHost;
 
 public class AllFlashcards extends ListActivity {
 
@@ -17,14 +18,48 @@ public class AllFlashcards extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_flashcards);
-        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
         Context context = AllFlashcards.this;
+
+        //1st Tab. All Questions
+        ListView simple = (ListView) findViewById(R.id.listAll);
+        //2nd Tab. Group Unordered
+        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
+        //3rd Tab. Ordered Group
+        ExpandableListView listOrdered = (ExpandableListView) findViewById(R.id.list_ordered);
+
+
         DatabaseFunctions df = new DatabaseFunctions(context);
-        df.populateFlashList(context, listView);
+        df.populateFlashListAll(context, simple);
+        df.populateFlashList(context, listView, " ");
+        df.populateFlashList(context, listOrdered, "sort");
+        df.close();
 
         //Set Home Button
-        ImageButton home = (ImageButton) findViewById(R.id.home_button);
+        ImageButton home = (ImageButton) findViewById(R.id.homeButton);
         final Intent homeScreen = new Intent(this, MainActivity.class);
+
+        //Set up tab activity
+        TabHost tabhost=(TabHost)findViewById(R.id.tabHost);
+        tabhost.setup();
+
+        //Set Tabs Only need two tabs. Two expandable lists and one non expandable list.
+        TabHost.TabSpec spec1=tabhost.newTabSpec("Tab 3");
+        spec1.setIndicator("All Flashcards");
+        spec1.setContent(R.id.tab1);
+
+        TabHost.TabSpec spec2 = tabhost.newTabSpec("Tab 2");
+        spec2.setIndicator("Grouped By Title");
+        spec2.setContent(R.id.tab2);
+
+        TabHost.TabSpec spec3 = tabhost.newTabSpec("Tab 3");
+        spec3.setIndicator("Ordered By Title");
+        spec3.setContent(R.id.tab3);
+
+
+        //Add Tabs
+        tabhost.addTab(spec1);
+        tabhost.addTab(spec2);
+        tabhost.addTab(spec3);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override

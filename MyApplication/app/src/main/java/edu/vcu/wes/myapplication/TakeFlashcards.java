@@ -62,6 +62,7 @@ public class TakeFlashcards extends AppCompatActivity {
                 flipCard();
             }
         });
+        df.close();
     }
 
     private void flipCard() {
@@ -87,7 +88,6 @@ public class TakeFlashcards extends AppCompatActivity {
         }
         rootLayout.startAnimation(flipAnimation);
 
-
     }
 
     private void setQuestions(){
@@ -99,6 +99,7 @@ public class TakeFlashcards extends AppCompatActivity {
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();
         }
+
     }
 
     private void setAnswers(){
@@ -109,6 +110,7 @@ public class TakeFlashcards extends AppCompatActivity {
         catch(IndexOutOfBoundsException ie){
             ie.printStackTrace();
         }
+
     }
 
     @Override

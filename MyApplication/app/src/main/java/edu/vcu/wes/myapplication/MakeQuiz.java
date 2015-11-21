@@ -61,23 +61,19 @@ public class MakeQuiz extends AppCompatActivity {
                     answerThreeQuiz = userMadeAnswer3.getText().toString();
                     answerCorrectQuiz = userMadeCorrectAnswer.getText().toString();
 
-                    final boolean checkHasLetter = titleOfQuiz.matches(".*\\D.*") &&
-                            questionOfQuiz.matches(".*\\D.*") &&
-                            answerOneQuiz.matches(".*\\D.*") &&
-                            answerTwoQuiz.matches(".*\\D.*") &&
-                            answerThreeQuiz.matches(".*\\D.*") &&
-                            answerCorrectQuiz.matches(".*\\D.*");
 
-                    final boolean checkHasNumber = titleOfQuiz.matches(".*\\d.*") &&
-                            questionOfQuiz.matches(".*\\d.*") &&
-                            answerOneQuiz.matches(".*\\d.*") &&
-                            answerTwoQuiz.matches(".*\\d.*") &&
-                            answerThreeQuiz.matches(".*\\d.*") &&
-                            answerCorrectQuiz.matches(".*\\d.*");
+                    final boolean checkHasNumberOrLetter = titleOfQuiz.matches(".*\\w.*") &&
+                            questionOfQuiz.matches(".*\\w.*") &&
+                            answerOneQuiz.matches(".*\\w.*") &&
+                            answerTwoQuiz.matches(".*\\w.*") &&
+                            answerThreeQuiz.matches(".*\\w.*") &&
+                            answerCorrectQuiz.matches(".*\\w.*");
 
                     ctx = MakeQuiz.this;
                     DatabaseFunctions database = new DatabaseFunctions(ctx);
-                    if(checkHasLetter || checkHasNumber) {
+                    //This should be fixed to not allow white space and only valid characters
+                    //Should be allowed to enter the database.
+                    if( checkHasNumberOrLetter ) {
                         database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz,
                                 answerOneQuiz, answerTwoQuiz, answerThreeQuiz, answerCorrectQuiz);
                         Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
@@ -85,7 +81,7 @@ public class MakeQuiz extends AppCompatActivity {
                     else{
                         Toast.makeText(ctx,"Not valid input",Toast.LENGTH_SHORT).show();
                     }
-
+                    database.close();
                     //Set all the fields to blank and start over.
                     userMadeTitle.setText("");
                     userMadeQuestion.setText("");
