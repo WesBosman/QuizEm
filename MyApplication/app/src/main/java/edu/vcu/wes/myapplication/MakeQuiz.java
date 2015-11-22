@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MakeQuiz extends AppCompatActivity {
@@ -38,8 +38,10 @@ public class MakeQuiz extends AppCompatActivity {
         userMadeAnswer2 = (EditText) findViewById(R.id.editTextAnswerTwo);
         userMadeAnswer3 = (EditText) findViewById(R.id.editTextAnswerThree);
         userMadeCorrectAnswer = (EditText) findViewById(R.id.editTextCorrectAnswer);
-        Button submitButton = (Button) findViewById(R.id.submit_button);
-        Button allQuizzesButton = (Button) findViewById(R.id.all_quizzes_button);
+        ImageButton submitButton = (ImageButton) findViewById(R.id.submit_button);
+        ImageButton allQuizzesButton = (ImageButton) findViewById(R.id.all_quizzes_button);
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        final Intent homeScreen = new Intent(this, MainActivity.class);
         final Intent allQuizzesScreen = new Intent(this, AllQuizzes.class);
 
 
@@ -59,23 +61,19 @@ public class MakeQuiz extends AppCompatActivity {
                     answerThreeQuiz = userMadeAnswer3.getText().toString();
                     answerCorrectQuiz = userMadeCorrectAnswer.getText().toString();
 
-                    final boolean checkHasLetter = titleOfQuiz.matches(".*\\D.*") &&
-                            questionOfQuiz.matches(".*\\D.*") &&
-                            answerOneQuiz.matches(".*\\D.*") &&
-                            answerTwoQuiz.matches(".*\\D.*") &&
-                            answerThreeQuiz.matches(".*\\D.*") &&
-                            answerCorrectQuiz.toString().matches(".*\\D.*");
 
-                    final boolean checkHasNumber = titleOfQuiz.matches(".*\\d.*") &&
-                            questionOfQuiz.matches(".*\\d.*") &&
-                            answerOneQuiz.matches(".*\\d.*") &&
-                            answerTwoQuiz.matches(".*\\d.*") &&
-                            answerThreeQuiz.matches(".*\\d.*") &&
-                            answerCorrectQuiz.matches(".*\\d.*");
+                    final boolean checkHasNumberOrLetter = titleOfQuiz.matches(".*\\w.*") &&
+                            questionOfQuiz.matches(".*\\w.*") &&
+                            answerOneQuiz.matches(".*\\w.*") &&
+                            answerTwoQuiz.matches(".*\\w.*") &&
+                            answerThreeQuiz.matches(".*\\w.*") &&
+                            answerCorrectQuiz.matches(".*\\w.*");
 
                     ctx = MakeQuiz.this;
                     DatabaseFunctions database = new DatabaseFunctions(ctx);
-                    if(checkHasLetter || checkHasNumber) {
+                    //This should be fixed to not allow white space and only valid characters
+                    //Should be allowed to enter the database.
+                    if( checkHasNumberOrLetter ) {
                         database.insertIntoDatabase(database, titleOfQuiz, questionOfQuiz,
                                 answerOneQuiz, answerTwoQuiz, answerThreeQuiz, answerCorrectQuiz);
                         Toast.makeText(MakeQuiz.this, "Quiz Saved", Toast.LENGTH_SHORT).show();
@@ -83,7 +81,7 @@ public class MakeQuiz extends AppCompatActivity {
                     else{
                         Toast.makeText(ctx,"Not valid input",Toast.LENGTH_SHORT).show();
                     }
-
+                    database.close();
                     //Set all the fields to blank and start over.
                     userMadeTitle.setText("");
                     userMadeQuestion.setText("");
@@ -98,6 +96,13 @@ public class MakeQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(allQuizzesScreen);
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(homeScreen);
             }
         });
 

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:layout="@+id/relative"
-    tools:context=".MakeQuiz">
+    tools:context=".MakeQuiz"
+    android:background="@drawable/background_inverted_all">
 
 
     <EditText
@@ -16,7 +17,10 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:hint="Title: "
-        android:id="@+id/flashCardsTitle" />
+        android:id="@+id/flashCardsTitle"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="350dp"
@@ -25,7 +29,9 @@
         android:hint="Enter Question: "
         android:ems="10"
         android:id="@+id/flashCardsQuestion"
-        android:layout_below="@+id/flashCardsTitle" />
+        android:layout_below="@+id/flashCardsTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="350dp"
@@ -34,22 +40,46 @@
         android:hint="Enter Answer: "
         android:ems="10"
         android:id="@+id/flashCardsAnswer"
-        android:layout_below="@+id/flashCardsQuestion"/>
+        android:layout_below="@+id/flashCardsQuestion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="@string/submit_button"
         android:id="@+id/submit_FlashCards_button"
+        android:background="@drawable/submit_button"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/flashCardsAnswer" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="@string/all_flashcards"
         android:id="@+id/all_flashCards_button"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:background="@drawable/all_flash_button"
+        android:layout_alignTop="@+id/submit_FlashCards_button"
+        android:layout_alignRight="@+id/flashCardsAnswer"
+        android:layout_alignEnd="@+id/flashCardsAnswer" />
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/quizem_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/home_Button"
+        android:background="@drawable/ic_home_black"
+        android:layout_alignBottom="@+id/all_flashCards_button"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

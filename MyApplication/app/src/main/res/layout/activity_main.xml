@@ -7,33 +7,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
+    android:background="@drawable/background_main"
     >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="215dp"
         android:text="@string/title_activity_quiz"
         android:id="@+id/quiz_button"
-        android:layout_above="@+id/flash_button"
-        android:layout_alignLeft="@+id/flash_button"
-        android:layout_alignStart="@+id/flash_button" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_flash"
-        android:id="@+id/flash_button"
+        android:background="@drawable/quiz_button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="215dp"
+        android:text="@string/title_activity_flash"
+        android:id="@+id/flash_button"
+        android:background="@drawable/flash_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/quiz_button"
+        android:layout_alignStart="@+id/quiz_button" />
+
+    <ImageButton
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tutorial_string"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:id="@+id/tutorial_btn"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="showTutorial"/>
+        android:onClick="showTutorial"
+        android:background="@drawable/ic_help_black"/>
 </RelativeLayout>

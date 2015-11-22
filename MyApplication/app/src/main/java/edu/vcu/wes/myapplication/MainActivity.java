@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button quizBtn = (Button) findViewById(R.id.quiz_button);
-        Button flashBtn = (Button) findViewById(R.id.flash_button);
-        Button tutorialBtn = (Button) findViewById(R.id.tutorial_btn);
+        ImageButton quizBtn = (ImageButton) findViewById(R.id.quiz_button);
+        ImageButton flashBtn = (ImageButton) findViewById(R.id.flash_button);
+        ImageButton tutorialBtn = (ImageButton) findViewById(R.id.tutorial_btn);
         final Intent quizScreen = new Intent(this, QuizActivity.class);
         final Intent flashScreen = new Intent(this, FlashActivity.class);
 

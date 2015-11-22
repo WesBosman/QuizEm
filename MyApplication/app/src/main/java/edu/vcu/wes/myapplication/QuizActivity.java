@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.Target;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -24,9 +22,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        Button takeQuiz = (Button) findViewById(R.id.quiz_take);
-        Button makeQuiz = (Button) findViewById(R.id.quiz_make);
-        Button allQuiz = (Button) findViewById(R.id.quiz_all);
+        ImageButton takeQuiz = (ImageButton) findViewById(R.id.quiz_take);
+        ImageButton makeQuiz = (ImageButton) findViewById(R.id.quiz_make);
+        ImageButton allQuiz = (ImageButton) findViewById(R.id.quiz_all);
         ImageButton helpBtn = (ImageButton) findViewById(R.id.help_btn);
 
 
@@ -46,6 +44,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Toast.makeText(QuizActivity.this, "There is no info in database to Take a Quiz.", Toast.LENGTH_LONG).show();
                 }
+                df.close();
             }
         });
 

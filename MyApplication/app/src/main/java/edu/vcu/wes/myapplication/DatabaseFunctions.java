@@ -7,10 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 /**
  * Created by Wes on 9/16/2015.
@@ -23,16 +27,18 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
 
     //Quiz Table Strings
     public static final String QUIZ_TITLE = "quiz_title";
+    public static final String QUIZ_ID = "_id";
     public static final String QUIZ_QUESTION = "quiz_question";
     public static final String QUIZ_ANSWER1 = "quiz_answer_one";
     public static final String QUIZ_ANSWER2 = "quiz_answer_two";
     public static final String QUIZ_ANSWER3 = "quiz_answer_three";
     public static final String QUIZ_CORRECT_ANSWER = "quiz_answer_correct";
-    public static final String DATABASE_NAME = "OurQuestionDatabase.db";
+    public static final String DATABASE_NAME = "OurDatabase.db";
     public static final String QUIZ_TABLE = "quiz_collection";
 
     //FlashCard Table Strings.
     public static final String FLASH_TITLE = "flash_title";
+    public static final String FLASH_ID = "_id";
     public static final String FLASH_QUESTION = "flash_question";
     public static final String FLASH_ANSWER = "flash_answer";
     public static final String FLASH_TABLE = "flash_collection";
@@ -40,15 +46,14 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
     //Quiz table creation
     public static final int DATA_BASE_VERSION = 1;
     public String createQuery = "CREATE TABLE " + QUIZ_TABLE
-            + "(" + QUIZ_TITLE + " TEXT," + QUIZ_QUESTION
+            + "(" + QUIZ_ID + " integer primary key autoincrement, " + QUIZ_TITLE + " TEXT," + QUIZ_QUESTION
             + " TEXT," + QUIZ_ANSWER1 + " TEXT," + QUIZ_ANSWER2
             + " TEXT," + QUIZ_ANSWER3 + " TEXT," + QUIZ_CORRECT_ANSWER
             + " TEXT);";
 
     //Flash table creation
-    public static final int FLASH_DATABASE_VERSION = 1;
     public String createFlashQuery = "CREATE TABLE " + FLASH_TABLE
-            + "(" + FLASH_TITLE + " TEXT," + FLASH_QUESTION
+            + "(" + FLASH_ID + " integer primary key autoincrement, " + FLASH_TITLE + " TEXT," + FLASH_QUESTION
             + " TEXT," + FLASH_ANSWER + " TEXT);";
 
     //Create or Open Database.
@@ -99,9 +104,8 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
         content.put(FLASH_TITLE, title);
         content.put(FLASH_QUESTION, question);
         content.put(FLASH_ANSWER, answer1);
-
         long databaseId = database.insert(FLASH_TABLE, null, content);
-        Log.d("DatabaseFunctions: ", "A Row Has Been Inserted");
+        Log.d("FlashTable: ", "A Row Has Been Inserted");
     }
 
     //Gets FlashCard from the Flash Table in Database
@@ -112,11 +116,24 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
         return cursor;
     }
 
-    //Delete a Flash Card from the Flash Table in the Database.
-    public void deleteFromFlashDatabase(String title) {
+    //Delete a Flash Card from the Flash Table in the Database. Based on title.
+    public void deleteByFlashTitle(String title) {
         SQLiteDatabase db = this.getWritableDatabase();
         try{
             db.delete(FLASH_TABLE, "flash_title = ?", new String[] { title });
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            db.close();
+        }
+    }
+
+    public void deleteByFlashQuestion(String question) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try{
+            db.delete(FLASH_TABLE, "flash_question = ?", new String[] { question });
         }
         catch(Exception e){
             e.printStackTrace();
@@ -167,8 +184,10 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
 
     //Gets information from the database and displays it in a list view using a custom list adapter.
     //This method populates the Flash Cards List.
-    public void populateFlashList(Context context, ListView listView, String columns){
+    public void populateFlashList(Context context, ExpandableListView listView, String sort){
         ArrayList<String> titleArray = new ArrayList<>();
+        HashMap<String, ArrayList<String>> childItems = new HashMap<>();
+        ArrayList<String> children;
         try {
             DatabaseFunctions df = new DatabaseFunctions(context);
             Cursor c = df.getFromFlashDatabase(df);
@@ -178,24 +197,34 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
                         String flashTitle = c.getString(c.getColumnIndex(FLASH_TITLE));
                         String flashQuestion = c.getString(c.getColumnIndex(FLASH_QUESTION));
                         String flashAnswer = c.getString(c.getColumnIndex(FLASH_ANSWER));
-
-                        switch(columns){
-                            case "title":
-                                titleArray.add(flashTitle);
-                                break;
-                            case "questions":
-                                titleArray.add(flashQuestion);
-                                break;
-                            case "answers":
-                                titleArray.add(flashAnswer);
-                                break;
+                        children = new ArrayList<>();
+                        //If the key is the same then the questions and answers are grouped under the same title.
+                        if(childItems.containsKey(flashTitle)){
+                            children = childItems.get(flashTitle);
+                            children.add(flashQuestion);
+                            children.add(flashAnswer);
                         }
+                        //Other wise they get set as they normally would.
+                        else {
+                            titleArray.add(flashTitle);
+                            children.add(flashQuestion);
+                            children.add(flashAnswer);
+                            childItems.put(flashTitle, children);
+                        }
+
                     } while (c.moveToNext());
                 }
             }
+            if(sort.equals("sort")){
+                Collections.sort(titleArray, new Comparator<String>() {
+                    @Override
+                    public int compare(String lhs, String rhs) {
+                        return lhs.compareTo(rhs);
+                    }
+                });
+            }
             //This can set how the list can be viewed for example making clickable list items.
-            // arrayAdapter = (new ArrayAdapter(this, android.R.layout.simple_selectable_list_item, results));
-            CustomArrayAdapter arrayAdapter = (new CustomArrayAdapter(context, titleArray));
+            CustomArrayAdapter arrayAdapter = (new CustomArrayAdapter(context, titleArray, childItems));
             listView.setAdapter(arrayAdapter);
 
             //Close the database function close cursor also.
@@ -205,11 +234,48 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
             Log.e(getClass().getSimpleName(),
                     "Could not create or open the database");
         }catch(NullPointerException ne){
-            Log.d("AllFlash: ", "Nullpointer thrown from closing cursor.");
+            Log.d("AllFlash: ", "Null pointer thrown from closing cursor.");
         }
     }
 
+    public void populateFlashListAll(Context context, ListView listView) {
+        ArrayList<String> flashTitle = new ArrayList<>();
+        ArrayList<String> flashQuestion = new ArrayList<>();
+        ArrayList<String> flashAnswer = new ArrayList<>();
 
+        try {
+            DatabaseFunctions df = new DatabaseFunctions(context);
+            Cursor c = df.getFromFlashDatabase(df);
+            if (c != null) {
+                if (c.moveToFirst()) {
+                    do {
+                        String title = c.getString(c.getColumnIndex(FLASH_TITLE));
+                        String question = c.getString(c.getColumnIndex(FLASH_QUESTION));
+                        String answerOne = c.getString(c.getColumnIndex(FLASH_ANSWER));
+
+                        flashTitle.add(title);
+                        flashQuestion.add(question);
+                        flashAnswer.add(answerOne);
+
+                    } while (c.moveToNext());
+                }
+            }
+            //This can set how the list can be viewed for example making clickable list items.
+            SimpleArrayAdapter arrayAdapter = (new SimpleArrayAdapter(context, flashTitle, flashQuestion, flashAnswer));
+            listView.setAdapter(arrayAdapter);
+
+            //Close the database function close cursor also.
+            c.close();
+            df.close();
+
+        } catch (SQLiteException se) {
+            Log.e(getClass().getSimpleName(),
+                    "Could not create or open the database");
+        }catch(NullPointerException ne){
+            Log.d("FlashListAll: ", "Null pointer thrown from closing cursor.");
+        }
+
+    }
 
     //------------------------------  Quiz Table Functionality  ------------------------------------
 
@@ -255,12 +321,11 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
                     QUIZ_CORRECT_ANSWER};
 
         Cursor cursor = database.query(QUIZ_TABLE, columns, null, null, null, null, null);
-
         return cursor;
     }
 
-    //Delete Quiz Question from Database.
-    public void deleteFromDatabase(String title) {
+    //Delete Quiz Question from Database. Based on title.
+    public void deleteByQuizTitle(String title) {
         SQLiteDatabase db = this.getWritableDatabase();
 
             try {
@@ -270,6 +335,20 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
             } finally {
                 db.close();
             }
+
+    }
+
+    //Delete quiz question based on the question
+    public void deleteByQuizQuestion(String question) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+            db.delete(QUIZ_TABLE, "quiz_question = ?", new String[]{question});
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.close();
+        }
 
     }
 
@@ -312,14 +391,83 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
         } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(), "Could not create or open the database");
         }catch(NullPointerException ne){
-            Log.d("TakeQuiz: ", "Nullpointer thrown.");
+            Log.d("TakeQuiz: ", "Null pointer thrown.");
         }
         return fromDatabase;
     }
 
     //This populate Quiz List uses a custom adapter to display the items in a ListView.
-    public void populateQuizList(Context context, ListView listView, String columns) {
+    public void populateQuizList(Context context, ExpandableListView listView, String sort) {
         ArrayList<String> titleArray = new ArrayList<>();
+        HashMap<String, ArrayList<String>> childItems = new HashMap<>();
+        ArrayList<String> children;
+
+        try {
+            DatabaseFunctions df = new DatabaseFunctions(context);
+            Cursor c = df.getFromDatabase(df);
+            if (c != null) {
+                if (c.moveToFirst()) {
+                    do {
+                        children = new ArrayList<>();
+                        String title = c.getString(c.getColumnIndex(QUIZ_TITLE));
+                        String question = c.getString(c.getColumnIndex(QUIZ_QUESTION));
+                        String answerOne = c.getString(c.getColumnIndex(QUIZ_ANSWER1));
+                        String answerTwo = c.getString(c.getColumnIndex(QUIZ_ANSWER2));
+                        String answerThree = c.getString(c.getColumnIndex(QUIZ_ANSWER3));
+                        String answerCorrect = c.getString(c.getColumnIndex(QUIZ_CORRECT_ANSWER));
+                        //If a two titles(keys) are the same. The key will go to all values.
+                        if(childItems.containsKey(title)){
+                            children = childItems.get(title);
+                            children.add(question);
+                            children.add(answerOne);
+                            children.add(answerTwo);
+                            children.add(answerThree);
+                            children.add(answerCorrect);
+                        }
+                        //Otherwise they get set as they normally would.
+                        else {
+                            titleArray.add(title);
+                            children.add(question);
+                            children.add(answerOne);
+                            children.add(answerTwo);
+                            children.add(answerThree);
+                            children.add(answerCorrect);
+                            childItems.put(title, children);
+                        }
+
+                    } while (c.moveToNext());
+                }
+            }
+            //If "sort" is passed in then sort the collection by title.
+            if(sort.equals("sort")){
+                Collections.sort(titleArray, new Comparator<String>() {
+                    @Override
+                    public int compare(String lhs, String rhs) {
+                        return lhs.compareTo(rhs);
+                    }
+                });
+            }
+            //This can set how the list can be viewed for example making clickable list items.
+            CustomArrayAdapter arrayAdapter = (new CustomArrayAdapter(context, titleArray, childItems));
+            listView.setAdapter(arrayAdapter);
+
+            //Close the database function close cursor also.
+            c.close();
+            df.close();
+        } catch (SQLiteException se) {
+            Log.e(getClass().getSimpleName(),
+                    "Could not create or open the database");
+        }catch(NullPointerException ne){
+            Log.d("AllQuizzes: ", "Null pointer thrown from closing cursor.");
+        }
+    }
+
+    //Old Code could be used to populate list with individual elements because can not have two keys
+    public void populateQuizListAll(Context context, ListView listView) {
+        ArrayList<String> quizTitle = new ArrayList<>();
+        ArrayList<String> quizQuestion = new ArrayList<>();
+        ArrayList<String> quizAnswer = new ArrayList<>();
+
         try {
             DatabaseFunctions df = new DatabaseFunctions(context);
             Cursor c = df.getFromDatabase(df);
@@ -332,40 +480,30 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
                         String answerTwo = c.getString(c.getColumnIndex(QUIZ_ANSWER2));
                         String answerThree = c.getString(c.getColumnIndex(QUIZ_ANSWER3));
                         String answerCorrect = c.getString(c.getColumnIndex(QUIZ_CORRECT_ANSWER));
-                        //titleArray.add(title + "\n" + question + "\n" + answerOne + "\n" + answerTwo
-                          //      + "\n" + answerThree + "\n" + answerCorrect);
 
-                        switch(columns){
-                            case "title":
-                                titleArray.add(title);
-                                break;
-                            case "questions":
-                                titleArray.add(question);
-                                break;
-                            case "answers":
-                                titleArray.add(answerOne);
-                                titleArray.add(answerTwo);
-                                titleArray.add(answerThree);
-                                titleArray.add(answerCorrect);
-                                break;
-                        }
+                        quizTitle.add(title);
+                        quizQuestion.add(question);
+                        quizAnswer.add(answerOne + "\n" + answerTwo + "\n" + answerThree + "\n" + answerCorrect);
+
                     } while (c.moveToNext());
                 }
             }
             //This can set how the list can be viewed for example making clickable list items.
             // arrayAdapter = (new ArrayAdapter(this, android.R.layout.simple_selectable_list_item, results));
-            CustomArrayAdapter arrayAdapter = (new CustomArrayAdapter(context, titleArray));
+            SimpleArrayAdapter arrayAdapter = (new SimpleArrayAdapter(context, quizTitle, quizQuestion, quizAnswer));
             listView.setAdapter(arrayAdapter);
 
+
             //Close the database function close cursor also.
-            c.close();
             df.close();
+
         } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(),
                     "Could not create or open the database");
         }catch(NullPointerException ne){
-            Log.d("AllQuizzes: ", "Nullpointer thrown from closing cursor.");
+            Log.d("AllQuizzes: ", "Null pointer thrown from closing cursor.");
         }
 
     }
+
 }

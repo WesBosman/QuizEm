@@ -41,6 +41,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
     /**
      * This method checks that the buttons currently in the app can be clicked.
      */
+
     /*Checks all of our main activities. Meant to be used with an empty database*/
    public void testCheckButtons() {
         onView(withId(R.id.quiz_button)).perform(click());
@@ -54,6 +55,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
         onView(withId(R.id.quiz_all)).perform(click());
         pressBack();
         pressBack();
+
+            /** Not sure which tests are the right ones so I kept both and commented one out.
         onView(withId(R.id.flash_button)).perform(click());
         onView(withId(R.id.take_flashcard_button)).perform(click());
         pressBack();
@@ -62,38 +65,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
         onView(withId(R.id.all_flash_button)).perform(click());
         pressBack();
         pressBack();
-
+             */
     }
-
-    /**This one tests our make a quiz function. unimplemented
-    public void testMakeQuiz() {
-        onView(withId(R.id.quiz_button)).perform(click());
-        onView(withId(R.id.quiz_make)).perform(click());
-
-        onView(withId(R.id.editTextTitle)).perform(click())
-                .perform(typeText("Will This Work"));
-
-        onView(withId(R.id.editTextQuestion)).perform(click())
-                .perform(typeText("Nope."));
-
-        onView(withId(R.id.editTextAnswerOne)).perform(click())
-                .perform(typeText("It"));
-
-        onView(withId(R.id.editTextAnswerTwo)).perform(click())
-                .perform(typeText("Probably"));
-
-        onView(withId(R.id.editTextAnswerThree)).perform(click())
-                .perform(typeText("Will"));
-
-        onView(withId(R.id.editTextCorrectAnswer)).perform(click())
-                .perform(typeText("Not"));
-
-        onView(withId(R.id.submit_button)).perform(click());
-        pressBack();
-        pressBack();
-        pressBack();
-
-    }*/
 
     /*Checks to see whether we can enter null value into our Quizzes*/
     public void testEmptyQuiz(){

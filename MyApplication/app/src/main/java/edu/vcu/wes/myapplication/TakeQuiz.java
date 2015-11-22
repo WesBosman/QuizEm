@@ -2,8 +2,8 @@ package edu.vcu.wes.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,19 +16,20 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TakeQuiz extends AppCompatActivity {
     TextView tv;
     Context context = this;
     RadioGroup rg;
     RadioButton rb1,rb2,rb3,rb4;
-    ImageButton btnNext, btnBack;
+    ImageButton btnNext;
     DatabaseFunctions df;
     private String isCorrect;
     public static double percentCorrect;
     public static int correct, wrong, total;
+    private int flag = 0;
     private int count = 0;
-    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,6 @@ public class TakeQuiz extends AppCompatActivity {
         rb3 = (RadioButton)findViewById(R.id.questionThreeButton);
         rb4 = (RadioButton)findViewById(R.id.questionFourButton);
         btnNext = (ImageButton)findViewById(R.id.nextButton);
-        btnBack = (ImageButton) findViewById(R.id.backButton);
 
         //This calls the method for initially setting the questions and answers.
         //If there is information in the database populate the list.
@@ -61,10 +61,14 @@ public class TakeQuiz extends AppCompatActivity {
                 ArrayList<String> questions = df.populateQuiz(context, "questions");
 
                     if ((answerText).equals(getCorrectAnswer())) {
+                        yourAnswer.setPadding(10, 10, 10, 10);
+                        yourAnswer.setBackgroundColor(Color.GREEN); //Highlight correct answer.
                         correct++;
                         Toast.makeText(TakeQuiz.this, "Correct", Toast.LENGTH_SHORT).show();
 
                     } else {
+                        yourAnswer.setPadding(10, 10, 10, 10);
+                        yourAnswer.setBackgroundColor(Color.RED); //Set color red if wrong answer.
                         wrong++;
                         Toast.makeText(TakeQuiz.this, "Incorrect", Toast.LENGTH_SHORT).show();
                     }
@@ -72,7 +76,17 @@ public class TakeQuiz extends AppCompatActivity {
 
                     //If there are more questions then set them and allow the user to answer them.
                     if (flag < questions.size()) {
-                        setQuestions();
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setQuestions();
+                                rb1.setBackgroundColor(Color.TRANSPARENT);
+                                rb2.setBackgroundColor(Color.TRANSPARENT);
+                                rb3.setBackgroundColor(Color.TRANSPARENT);
+                                rb4.setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }, 1000);
                     }
 
                     //Otherwise set the percentage of correct answers out of the total
@@ -91,14 +105,6 @@ public class TakeQuiz extends AppCompatActivity {
             }
         });
 
-        // Back button not yet implemented want it invisible on first page and then visible on the following pages.
-        // Would be useful so that the user can go back to edit questions before submiting.
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TakeQuiz.this, "Feature not yet implemented",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     //Set the correct percentage to a static variable that can be called from outside of this class.
@@ -114,22 +120,79 @@ public class TakeQuiz extends AppCompatActivity {
         return isCorrect;
     }
 
+    //This method is not really random. Instead it makes an array list, shuffles it and then
+    //Takes the first number out of the list to help with randomizing the correct answers.
+    private int randomNumber(){
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        Collections.shuffle(numbers);
+        return numbers.remove(0);
+    }
+
     //This method sets up the questions and answers after getting them from the database.
+    //Uses a switch statement for randomizing where the correct answers are on the page
     private void setQuestions(){
         ArrayList<String> questions = df.populateQuiz(context, "questions");
         ArrayList<String> answers = df.populateQuiz(context, "answers");
 
         try {
-            tv.setText(questions.get(flag));
-            rb1.setText(answers.get(count));
-            count++;
-            rb2.setText(answers.get(count));
-            count++;
-            rb3.setText(answers.get(count));
-            count++;
-            rb4.setText(answers.get(count));
-            setCorrectAnswer(answers.get(count));
-            count++;
+
+            switch (randomNumber()) {
+                case 1:
+                    tv.setText(questions.get(flag));
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 2:
+                    tv.setText(questions.get(flag));
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    count++;
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 3:
+                    tv.setText(questions.get(flag));
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    count++;
+                    rb4.setText(answers.get(count));
+                    count++;
+                    rb1.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+                case 4:
+                    tv.setText(questions.get(flag));
+                    rb4.setText(answers.get(count));
+                    count++;
+                    rb1.setText(answers.get(count));
+                    count++;
+                    rb2.setText(answers.get(count));
+                    count++;
+                    rb3.setText(answers.get(count));
+                    setCorrectAnswer(answers.get(count));
+                    count++;
+                    break;
+
+            }
+        df.close();
+
         }catch(IndexOutOfBoundsException ie) {
             Toast.makeText(getApplicationContext(), "Nothing in database.",Toast.LENGTH_LONG).show();
             Log.d("TakeQuiz:", "The database has nothing in it at this time.");
