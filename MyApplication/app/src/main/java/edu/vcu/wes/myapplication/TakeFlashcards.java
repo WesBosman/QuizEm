@@ -46,6 +46,8 @@ public class TakeFlashcards extends AppCompatActivity {
                     flag++;
                     count++;
                     setQuestions();
+                    //flashNext.setVisibility(View.VISIBLE);
+
                 }
                 else{
                     //Start an activity that lets them review flashcards or go back to main menu.
@@ -56,16 +58,21 @@ public class TakeFlashcards extends AppCompatActivity {
             }
         });
 
+
         getAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flipCard();
+                //flashNext.setVisibility(View.GONE);
             }
         });
         df.close();
     }
 
     private void flipCard() {
+
+
+
         View rootLayout = findViewById(R.id.flash_activity_root);
         View cardFace = findViewById(R.id.flash_activity_card_front);
         View cardBack = findViewById(R.id.flash_activity_card_back);
@@ -74,23 +81,37 @@ public class TakeFlashcards extends AppCompatActivity {
         //Set the answers once the get answer button is clicked.
         //This has to be delayed in order to make it show up on the back screen
         //Without first showing up on the front screen or having to hit get answer twice.
+        flashNext.setVisibility(View.GONE);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 setAnswers();
             }
         }, 500);
 
         if (cardFace.getVisibility() == View.GONE) {
+
             flipAnimation.reverse();
 
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    flashNext.setVisibility(View.VISIBLE);
+                }
+            }, 500);
         }
         rootLayout.startAnimation(flipAnimation);
 
     }
 
     private void setQuestions(){
+
+        //flashNext.setVisibility(View.VISIBLE);
+
+
         ArrayList<String> flashQ = df.populateFlashCards(this, "questions");
 
         try {
