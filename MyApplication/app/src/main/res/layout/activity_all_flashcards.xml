@@ -57,7 +57,7 @@
                         android:id="@android:id/list"
                         android:layout_width="match_parent"
                         android:layout_height="425dp"
-                        android:background="@drawable/background_all" />
+                        android:background="@drawable/background_all"/>
 
                 </LinearLayout>
 
@@ -70,7 +70,7 @@
                         android:id="@+id/list_ordered"
                         android:layout_width="match_parent"
                         android:layout_height="425dp"
-                        android:background="@drawable/background_all" />
+                        android:background="@drawable/background_all"/>
 
                 </LinearLayout>
 
@@ -84,6 +84,7 @@
         android:background="@drawable/ic_home_black"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" >
+    </ImageButton>
 </RelativeLayout>
 
