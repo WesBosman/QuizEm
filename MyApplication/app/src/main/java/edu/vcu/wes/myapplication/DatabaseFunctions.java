@@ -493,8 +493,8 @@ public class DatabaseFunctions extends SQLiteOpenHelper {
             SimpleArrayAdapter arrayAdapter = (new SimpleArrayAdapter(context, quizTitle, quizQuestion, quizAnswer));
             listView.setAdapter(arrayAdapter);
 
-
             //Close the database function close cursor also.
+            c.close();
             df.close();
 
         } catch (SQLiteException se) {

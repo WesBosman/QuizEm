@@ -18,21 +18,16 @@ public class AllFlashcards extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_flashcards);
-        Context context = AllFlashcards.this;
+        final Context context = AllFlashcards.this;
 
         //1st Tab. All Questions
-        ListView simple = (ListView) findViewById(R.id.listAll);
+        final ListView simple = (ListView) findViewById(R.id.listAll);
         //2nd Tab. Group Unordered
-        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
+        final ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
         //3rd Tab. Ordered Group
-        ExpandableListView listOrdered = (ExpandableListView) findViewById(R.id.list_ordered);
+        final ExpandableListView listOrdered = (ExpandableListView) findViewById(R.id.list_ordered);
 
 
-        DatabaseFunctions df = new DatabaseFunctions(context);
-        df.populateFlashListAll(context, simple);
-        df.populateFlashList(context, listView, " ");
-        df.populateFlashList(context, listOrdered, "sort");
-        df.close();
 
         //Set Home Button
         ImageButton home = (ImageButton) findViewById(R.id.homeButton);
@@ -46,15 +41,34 @@ public class AllFlashcards extends ListActivity {
         TabHost.TabSpec spec1=tabhost.newTabSpec("Tab 3");
         spec1.setIndicator("All Flashcards");
         spec1.setContent(R.id.tab1);
+        final String flashTabOne = spec1.getTag();
 
         TabHost.TabSpec spec2 = tabhost.newTabSpec("Tab 2");
         spec2.setIndicator("Grouped By Title");
         spec2.setContent(R.id.tab2);
+        final String flashTabTwo = spec2.getTag();
 
         TabHost.TabSpec spec3 = tabhost.newTabSpec("Tab 3");
         spec3.setIndicator("Ordered By Title");
         spec3.setContent(R.id.tab3);
+        final String flashTabThree = spec3.getTag();
 
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                DatabaseFunctions df = new DatabaseFunctions(context);
+                if(flashTabOne.equals(tabId)){
+                    df.populateFlashListAll(context, simple);
+                }
+                if(flashTabTwo.equals(tabId)){
+                    df.populateFlashList(context, listView, " ");
+                }
+                if(flashTabThree.equals(tabId)){
+                    df.populateFlashList(context, listOrdered, "sort");
+                }
+                df.close();
+            }
+        });
 
         //Add Tabs
         tabhost.addTab(spec1);

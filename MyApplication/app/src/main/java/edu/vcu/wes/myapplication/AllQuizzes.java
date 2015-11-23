@@ -19,28 +19,11 @@ import android.widget.TabHost;
  */
 public class AllQuizzes extends ListActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quizzes);
-        Context context = AllQuizzes.this;
-        //1st Tab
-        ListView simpleList = (ListView) findViewById(R.id.listAll);
-        //2nd Tab
-        ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
-        //3rd Tab
-        ExpandableListView orderedView = (ExpandableListView) findViewById(R.id.list_ordered);
-
-        DatabaseFunctions df = new DatabaseFunctions(context);
-        //Populate 1st tab
-        df.populateQuizListAll(context, simpleList);
-        //Populate 2nd tab
-        df.populateQuizList(context, listView, "");
-        //Populate 3rd tab
-        df.populateQuizList(context, orderedView, "sort");
-        df.close();
-
+        final Context context = AllQuizzes.this;
 
         //Set up the home button.
         ImageButton home = (ImageButton) findViewById(R.id.homeButton);
@@ -52,6 +35,13 @@ public class AllQuizzes extends ListActivity {
             }
         });
 
+        //1st Tab
+        final ListView simpleList = (ListView) findViewById(R.id.listAll);
+        //2nd Tab
+        final ExpandableListView listView = (ExpandableListView) findViewById(android.R.id.list);
+        //3rd Tab
+        final ExpandableListView orderedView =  (ExpandableListView) findViewById(R.id.list_ordered);
+
         //Set up tab activity
         TabHost tabhost=(TabHost)findViewById(R.id.tabHost);
         tabhost.setup();
@@ -60,14 +50,42 @@ public class AllQuizzes extends ListActivity {
         TabHost.TabSpec spec1 = tabhost.newTabSpec("Tab 3");
         spec1.setIndicator("All Questions");
         spec1.setContent(R.id.tab1);
+        final String tabOneTag = spec1.getTag();
 
         TabHost.TabSpec spec2 = tabhost.newTabSpec("Tab 2");
         spec2.setIndicator("Grouped By Title");
         spec2.setContent(R.id.tab2);
+        final String tabTwoTab = spec2.getTag();
 
         TabHost.TabSpec spec3 = tabhost.newTabSpec("Tab 3");
         spec3.setIndicator("Ordered By Title");
         spec3.setContent(R.id.tab3);
+        final String tabThreeTag = spec3.getTag();
+
+
+        //This code will populate the list when the tab is switched!
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                DatabaseFunctions df = new DatabaseFunctions(context);
+
+
+                if(tabOneTag.equals(tabId)){
+                    //Populate 1st tab
+                    df.populateQuizListAll(context, simpleList);
+                }
+                if(tabTwoTab.equals(tabId)){
+                    //Populate 2nd tab
+                    df.populateQuizList(context, listView, "");
+                }
+                if(tabThreeTag.equals(tabId)){
+                    //Populate 3rd tab
+                    df.populateQuizList(context, orderedView, "sort");
+                }
+
+                df.close();
+            }
+        });
 
         //Add Tabs
         tabhost.addTab(spec1);
