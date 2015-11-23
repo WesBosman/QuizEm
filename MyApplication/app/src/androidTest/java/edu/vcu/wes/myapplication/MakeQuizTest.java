@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -84,8 +85,8 @@ public class MakeQuizTest {
                 .check(matches(isDisplayed()));
 
         //Exit Keyboard mode (may have to remove depending on what device the test is run on i.e. emulator or phone)
-
-        pressBack();
+        closeSoftKeyboard();
+        //pressBack();
 
         //Click submit button so that it gets stored in the database.
         onView(withId(R.id.submit_button))
@@ -101,18 +102,11 @@ public class MakeQuizTest {
 
         //Delete the quiz we just made and took.
         onData(startsWith("Espresso"))
-                .inAdapterView(withId(android.R.id.list))
+                .inAdapterView(withId(R.id.listAll))
                 .onChildView(withId(R.id.delete_btn))
                 .perform(click());
         onView(withText(startsWith("Yes")))
                 .perform(click());
-
-    }
-
-    @After
-    public void afterAllTests(){
-
-
 
     }
 

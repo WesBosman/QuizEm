@@ -27,6 +27,7 @@ public class QuizResultsActivity extends AppCompatActivity {
                         "Ratio: " + String.format("%10s", TakeQuiz.correct + " / "
                                  + TakeQuiz.total) + "\n" +
                         "Percent: " + String.format("%4.2f  ", TakeQuiz.percentCorrect) + "%");
+        //Set all the variables that track the users progress back to zero.
         TakeQuiz.correct = 0;
         TakeQuiz.wrong = 0;
         TakeQuiz.total = 0;

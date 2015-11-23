@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * This Is The Old Code incase we still need part of it ............................................
+ * This Is The Old Code in case we still need part of it ............................................
  */
 
 public class SimpleArrayAdapter extends BaseAdapter implements ListAdapter {

@@ -44,7 +44,7 @@ public class MainActivityHelpTest {
                 .perform(click());
 
         //First screen of MainActivity help
-        /*onView(withId(com.github.amlcurran.showcaseview.ShowcaseView.))
+        /**onView(withId(com.github.amlcurran.showcaseview.ShowcaseView.))
                 .check(matches(withText(R.string.help_getstarted)));
         onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_sub_text))
                 .check(matches(withText(R.string.quizem)));*/
@@ -53,21 +53,21 @@ public class MainActivityHelpTest {
                 .perform(click());
 
         //Second screen, showcasing quiz button
-        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+        /**onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
                 .check(matches(withText(R.string.main_help_quiz)));*/
         onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
                 .check(matches(withText(R.string.help_next)))
                 .perform(click());
 
         //Third screen, showcasing flash button
-        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+        /**onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
                 .check(matches(withText(R.string.main_help_flash)));*/
         onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
                 .check(matches(withText(R.string.help_next)))
                 .perform(click());
 
         //Fourth and final screen, showcasing help button
-        /*onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
+        /**onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_title_text))
                 .check(matches(withText(R.string.main_help_help)));*/
         onView(withId(com.github.amlcurran.showcaseview.R.id.showcase_button))
                 .check(matches(withText(R.string.close)))

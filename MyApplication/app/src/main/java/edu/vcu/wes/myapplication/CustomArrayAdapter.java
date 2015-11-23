@@ -22,7 +22,7 @@ import java.util.HashMap;
  * The image button holds an X which is used to delete the question/quiz from the database.
  * Created by Wes on 10/19/2015.
  */
-public class CustomArrayAdapter extends BaseExpandableListAdapter { //implements ListAdapter {
+public class CustomArrayAdapter extends BaseExpandableListAdapter {
     //For the titles of Quizzes
     private ArrayList<String> parentList = new ArrayList<>();
     //Hash map for the child items. Ex. Questions and Answers...

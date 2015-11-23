@@ -95,14 +95,6 @@ public class TakeQuizTest {
         onView(withId(R.id.nextButton))
                 .perform(click());
 
-        //Check results are correct.
-        onView(withId(R.id.resultsStats))
-                .check(matches(withText("Correct: " + String.format("%5s", TakeQuiz.correct) + "\n" +
-                        "Missed: " + String.format("%5s",TakeQuiz.wrong) + "\n" +
-                        "Ratio: " + String.format("%10s", TakeQuiz.correct + " / "
-                        + TakeQuiz.total) + "\n" +
-                        "Percent: " + String.format("%4.2f  ", TakeQuiz.percentCorrect) + "%")));
-
         //Return to the main menu.
         onView(withId(R.id.mainMenuButton))
                 .perform(click());
@@ -117,18 +109,11 @@ public class TakeQuizTest {
 
         //Delete the quiz we just made and took.
         onData(startsWith("Espresso"))
-                .inAdapterView(withId(android.R.id.list))
+                .inAdapterView(withId(R.id.listAll))
                 .onChildView(withId(R.id.delete_btn))
                 .perform(click());
         onView(withText(startsWith("Yes")))
                 .perform(click());
-
-    }
-
-    @After
-    public void afterAllTests(){
-
-
 
     }
 }

@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
@@ -86,7 +87,7 @@ public class MakeQuizTest_Scenario3 {
 
         //Exit Keyboard mode (may have to remove depending on what device the test is run on i.e. emulator or phone)
 
-        pressBack();
+        closeSoftKeyboard();
 
         //Click submit button so that it gets stored in the database.
         onView(withId(R.id.submit_button))

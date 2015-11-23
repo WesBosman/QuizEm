@@ -122,7 +122,7 @@ public class TakeQuiz extends AppCompatActivity {
 
     //This method is not really random. Instead it makes an array list, shuffles it and then
     //Takes the first number out of the list to help with randomizing the correct answers.
-    private int randomNumber(){
+    public static int randomNumber(){
         ArrayList<Integer> numbers = new ArrayList<>();
         numbers.add(1);
         numbers.add(2);

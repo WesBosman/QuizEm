@@ -19,6 +19,7 @@ import android.widget.TabHost;
  */
 public class AllQuizzes extends ListActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class AllQuizzes extends ListActivity {
         tabhost.setup();
 
         //Set Tabs Only need two tabs. Two expandable lists and one non expandable list.
-        TabHost.TabSpec spec1=tabhost.newTabSpec("Tab 3");
+        TabHost.TabSpec spec1 = tabhost.newTabSpec("Tab 3");
         spec1.setIndicator("All Questions");
         spec1.setContent(R.id.tab1);
 
@@ -68,11 +69,11 @@ public class AllQuizzes extends ListActivity {
         spec3.setIndicator("Ordered By Title");
         spec3.setContent(R.id.tab3);
 
-
         //Add Tabs
         tabhost.addTab(spec1);
         tabhost.addTab(spec2);
         tabhost.addTab(spec3);
+
     }
 
     @Override

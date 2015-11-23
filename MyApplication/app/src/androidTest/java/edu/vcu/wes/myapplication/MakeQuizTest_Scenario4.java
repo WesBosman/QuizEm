@@ -66,20 +66,6 @@ public ActivityTestRule<MainActivity> rule = new ActivityTestRule<>(MainActivity
         onView(withId(R.id.all_quizzes_button))
                 .perform(click())
                 .check(doesNotExist());
-
-
-
-
-
-
     }
-
-    @After
-    public void afterAllTests(){
-
-
-
-    }
-
 
 }

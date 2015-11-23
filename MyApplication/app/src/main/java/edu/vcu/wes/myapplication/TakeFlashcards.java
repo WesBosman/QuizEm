@@ -71,8 +71,6 @@ public class TakeFlashcards extends AppCompatActivity {
 
     private void flipCard() {
 
-
-
         View rootLayout = findViewById(R.id.flash_activity_root);
         View cardFace = findViewById(R.id.flash_activity_card_front);
         View cardBack = findViewById(R.id.flash_activity_card_back);
@@ -108,9 +106,6 @@ public class TakeFlashcards extends AppCompatActivity {
     }
 
     private void setQuestions(){
-
-        //flashNext.setVisibility(View.VISIBLE);
-
 
         ArrayList<String> flashQ = df.populateFlashCards(this, "questions");
 

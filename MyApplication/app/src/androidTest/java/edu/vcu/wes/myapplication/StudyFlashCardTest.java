@@ -86,9 +86,17 @@ public class StudyFlashCardTest {
         onView(withId(R.id.flashCardAnswerText))
                 .check(matches(withText("True")));
 
+        //Click the flip button again. To flip the flashcard back around to be able to press next.
+        onView(withId(R.id.getAnswerButton))
+                .perform(click());
+
         //Click next image button.
         onView(withId(R.id.nextFlashButton))
                 .perform(click());
+
+        //Check that we are on results page by checking the text view says done.
+        onView(withId(R.id.textView))
+                .check(matches(withText("Done")));
 
         //Should be on results page.
         onView(withId(R.id.mainFlashButton))
@@ -103,18 +111,11 @@ public class StudyFlashCardTest {
                 .perform(click());
 
         onData(startsWith("Espresso"))
-                .inAdapterView(withId(android.R.id.list))
+                .inAdapterView(withId(R.id.listAll))
                 .onChildView(withId(R.id.delete_btn))
                 .perform(click());
         onView(withText(startsWith("Yes")))
                 .perform(click());
-    }
-
-    @After
-    public void afterAllTests(){
-
-
-
     }
 
 }
