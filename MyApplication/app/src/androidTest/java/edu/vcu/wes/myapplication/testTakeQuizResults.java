@@ -1,7 +1,8 @@
 package edu.vcu.wes.myapplication;
 
 /**
- * Unit Test For testing the random number is between 1 and 4 that sets the radio button answers.
+ * Unit Test
+ * For testing the random number is between 1 and 4 that sets the radio button answers.
  * For the Take Quiz Activity.
  * Created by Wes on 11/22/2015.
  */
@@ -10,7 +11,6 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
 

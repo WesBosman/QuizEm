@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Wes on 11/22/2015.
+ * Unit Test
  * Testing simple array adapter class.
- *
  */
 public class testSimpleArrayAdapter extends AndroidTestCase{
     private SimpleArrayAdapter simpleAdapt;

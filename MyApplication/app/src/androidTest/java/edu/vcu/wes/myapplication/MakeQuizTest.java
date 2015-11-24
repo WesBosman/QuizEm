@@ -26,8 +26,7 @@ import static org.hamcrest.Matchers.*;
 import static android.support.test.espresso.Espresso.onView;
 
 
-/** tests scenarios 1 & 2 of Making a better quiz scenario */
-/**
+/** tests scenarios 1 & 2 of Making a better quiz scenario.
  * Created by Charles on 10/27/2015.
  */
 

@@ -26,11 +26,11 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.3'
     androidTestCompile 'com.android.support.test:rules:0.3'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-    // Set this dependency if you want to use Mockito
-    testCompile 'org.mockito:mockito-core:1.10.19'
-
-    /** Was using the wrong build for espresso testing. Changed so tests would run
-     */
+    // Set this dependency if you want to use Mockito.
+    androidTestCompile "org.mockito:mockito-core:1.+"
+    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
+    //Showcase view and android support library.
     compile 'com.github.amlcurran.showcaseview:library:5.0.0'
     compile 'com.android.support:appcompat-v7:22.2.0'
 }

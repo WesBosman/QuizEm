@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 /**
  * Created by Wes on 11/22/2015.
+ * Unit Test
  * Tests the functionality of the custom array adapter.
  */
 public class testCustomArrayAdapter extends AndroidTestCase{
